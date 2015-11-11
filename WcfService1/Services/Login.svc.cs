@@ -26,7 +26,30 @@ namespace Checkers.Services
             };
         
         }
+        public LoginResponse connect(String session)
+        {
+            Boolean authorized = false;
+            mUser temp = DBControler.logIn(session);
+            if (temp != null && temp.isAuthorized() == true) authorized = true;
+            return new LoginResponse
+            {
+                Session = session,
+                Authorized = authorized
+            };
 
+        }
+        public LoginResponse disconnect(String session)
+        {
+            Boolean authorized = false;
+            mUser temp = DBControler.disconnect(session);
+            if (temp != null && temp.isAuthorized() == true) authorized = true;
+            return new LoginResponse
+            {
+                Session = session,
+                Authorized = authorized
+            };
+
+        }
         public LoginResponse logIn(String login, String password)
         {
             String session = "";

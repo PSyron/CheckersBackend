@@ -18,20 +18,20 @@ namespace Checkers.App_Data
         //Sprawdzenie prawidlowosci sesji
         public static mUser logIn(String session)
         {
-            if (Uta.CheckSession(session) == null || (int)Uta.CheckSession(session) == 0) return null;
-            mUser logedIn = new mUser(session, (int)Uta.SessionUserId(session));
-            logedIn.authorize();
-            Uta.NewSession(DBNull.Value.ToString(), false, logedIn.getId());
-            return logedIn;
+            if ((int)Uta.CheckSession(session) == 0) return null;
+            Uta.UserActive(session);
+            mUser loggedIn = new mUser(session, (int)Uta.SessionUserId(session));
+            loggedIn.authorize();
+            return loggedIn;
         }
-
+        //Wylogowanie uzytkownika. Usuniecie tokena sesji i przelaczenie stanu aktywnosci na false
         public static mUser logOff(String session)
         {
-            //if (Uta.CheckSession(session) == null || (int)Uta.CheckSession(session) == 0) return null;
             if ((int)Uta.CheckSession(session) == 0) return null;
-            mUser logedIn = new mUser("", (int)Uta.SessionUserId(session));
-            logedIn.unauthorize();
-            return logedIn;
+            mUser loggedOff = new mUser(DBNull.Value.ToString(), (int)Uta.SessionUserId(session));
+            Uta.NewSession(DBNull.Value.ToString(), false, loggedOff.getId());
+            loggedOff.unauthorize();
+            return loggedOff;
         }
         //Logowanie, uzyskanie nowej sesji
         public static mUser logIn(String login, String password)
@@ -82,6 +82,15 @@ namespace Checkers.App_Data
             mUser newUser=new mUser(userid,name, login, password,guid);
             newUser.authorize();
             return newUser;
+        }
+
+        public static mUser disconnect(String session)
+        {
+            if ((int)Uta.CheckSession(session) == 0) return null;
+            Uta.UserInactive(session);
+            mUser loggedIn = new mUser(session, (int)Uta.SessionUserId(session));
+            loggedIn.authorize();
+            return loggedIn;
         }
         public static String czas()
         {
