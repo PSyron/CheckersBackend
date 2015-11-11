@@ -1,0 +1,80 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
+using System.Text;
+using Checkers.Interfaces;
+using Checkers.Models;
+using Checkers.App_Data;
+namespace Checkers.Services
+{    
+    /// <summary>
+    /// Sprawdzenie aktywnych graczy, zaproszenia.
+    /// </summary>
+
+    public class Community : ICommunity
+    {
+        public PlayersResponse checkActivePlayers(String sessionToken)
+        {
+            Login LoginService= new Login();
+            List<mUser> users=new List<mUser>();
+            if(LoginService.session(sessionToken).Authorized==true)
+            {
+                users=DBControler.getActiveUsers();
+            }
+            else sessionToken="";
+
+            return new PlayersResponse
+            {
+                Session=sessionToken,
+                Users = userListToJson(users)
+            };
+        }
+
+        public PlayersResponse checkActiveFriends(String sessionToken)
+        {
+            Login LoginService= new Login();
+            List<mUser> users=new List<mUser>();
+            if(LoginService.session(sessionToken).Authorized==true)
+            {
+                users=DBControler.getActiveFriends(sessionToken);
+            }
+            else sessionToken="";
+
+            return new PlayersResponse
+            {
+                Session=sessionToken,
+                Users = userListToJson(users)
+            };
+        }
+        public PlayersResponse getFriends(String sessionToken)
+        {
+            Login LoginService= new Login();
+            List<mUser> users=new List<mUser>();
+            if(LoginService.session(sessionToken).Authorized==true)
+            {
+                 users=DBControler.getFriends(sessionToken);
+            }
+            else sessionToken="";
+            return new PlayersResponse
+            {
+                Session=sessionToken,
+                Users = userListToJson(users)
+            };
+        }
+            private List<mUser> userListToJson(List<mUser> users)
+        {
+            List<mUser> usersJson = new List<mUser>();
+
+            foreach (mUser u in users)
+                usersJson.Add(new mUser
+                {
+                    name=u.name
+                });
+            return usersJson;
+        }
+        }
+
+}
+

@@ -12,9 +12,10 @@ namespace Checkers.App_Data
     /// </summary>
     static class DBControler
     {
-        static App_Data.SQL_DATASETTableAdapters.TableAdapterManager tAM = new App_Data.SQL_DATASETTableAdapters.TableAdapterManager();
-        static App_Data.SQL_DATASETTableAdapters.tUsersTableAdapter Uta = new App_Data.SQL_DATASETTableAdapters.tUsersTableAdapter();
-
+        static SQL_DATASETTableAdapters.TableAdapterManager tAM = new SQL_DATASETTableAdapters.TableAdapterManager();
+        static SQL_DATASETTableAdapters.tUsersTableAdapter Uta = new SQL_DATASETTableAdapters.tUsersTableAdapter();
+        static SQL_DATASETTableAdapters.tUserFriendsTableAdapter UFta = new SQL_DATASETTableAdapters.tUserFriendsTableAdapter();
+        
         //Sprawdzenie prawidlowosci sesji
         public static mUser logIn(String session)
         {
@@ -92,6 +93,39 @@ namespace Checkers.App_Data
             loggedIn.authorize();
             return loggedIn;
         }
+        public static List<mUser> getActiveUsers()
+        {
+            DataTable list = Uta.ActiveUsers();
+            return dataToUsersList(list);
+        }
+        public static List<mUser> getFriends(String sessionToken)
+        {
+            int userId = (int)Uta.SessionUserId(sessionToken);
+            DataTable list = UFta.UserFriends(userId);
+            return dataToUsersList(list);
+        }
+        public static List<mUser> getActiveFriends(String sessionToken)
+        {
+            DataTable list = UFta.UserActiveFriends((int)Uta.SessionUserId(sessionToken));
+            return dataToUsersList(list);
+        }
+
+        private static List<mUser> dataToUsersList(DataTable list)
+        {
+            List<mUser> users = new List<mUser>();
+            for (int i = 0; i < list.Rows.Count; i++)
+            {
+                var row = list.Rows[i];
+                users.Add(new mUser(row["name"].ToString()));
+            }
+            return users;
+        }
+
+
+
+
+
+
         public static String czas()
         {
 

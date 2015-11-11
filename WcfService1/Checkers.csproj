@@ -80,6 +80,7 @@
     <Content Include="App_Data\PZ_log.ldf">
       <DependentUpon>PZ.mdf</DependentUpon>
     </Content>
+    <Content Include="Services\Community.svc" />
     <Content Include="Service References\Login\Checkers.Login.LoginResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -98,21 +99,10 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\Register\Register.wsdl" />
-    <None Include="Service References\Register\Register.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\Table\Table.disco" />
     <None Include="Service References\Table\configuration91.svcinfo" />
     <None Include="Service References\Table\configuration.svcinfo" />
     <None Include="Service References\Table\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\Register\Register.disco" />
-    <None Include="Service References\Register\configuration91.svcinfo" />
-    <None Include="Service References\Register\configuration.svcinfo" />
-    <None Include="Service References\Register\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -130,11 +120,15 @@
       <DependentUpon>SQL_DATASET.xsd</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="App_Data\SQL_DATASET.Designer.cs">
+    <Compile Include="App_Data\SQL_DATASET1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SQL_DATASET.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Services\Community.svc.cs">
+      <DependentUpon>Community.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\ICommunity.cs" />
     <Compile Include="Models\mChecker.cs" />
     <Compile Include="Models\mGame.cs" />
     <Compile Include="Models\mLog.cs" />
@@ -155,11 +149,6 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\Login\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\Register\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -207,7 +196,7 @@
     <None Include="App_Data\SQL_DATASET.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>SQL_DATASET.Designer.cs</LastGenOutput>
+      <LastGenOutput>SQL_DATASET1.Designer.cs</LastGenOutput>
     </None>
     <Content Include="App_Data\SQL_DATASET.xss">
       <DependentUpon>SQL_DATASET.xsd</DependentUpon>
@@ -226,7 +215,6 @@
     <WCFMetadataStorage Include="Service References\Game\" />
     <WCFMetadataStorage Include="Service References\Logger\" />
     <WCFMetadataStorage Include="Service References\Login\" />
-    <WCFMetadataStorage Include="Service References\Register\" />
     <WCFMetadataStorage Include="Service References\Table\" />
   </ItemGroup>
   <PropertyGroup>

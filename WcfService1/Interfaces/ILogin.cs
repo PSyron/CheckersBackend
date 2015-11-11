@@ -20,7 +20,7 @@ namespace Checkers.Interfaces
         [OperationContract]
         [WebGet(UriTemplate = "connect/{session}", ResponseFormat = WebMessageFormat.Json)]
         LoginResponse connect(String session);
-        http://156.17.130.217/Pz/Services/Login.svc/disconnect/8a502001-7291-4b8b-9ff1-d5617be4943e
+        //http://156.17.130.217/Pz/Services/Login.svc/disconnect/8a502001-7291-4b8b-9ff1-d5617be4943e
         [OperationContract]
         [WebGet(UriTemplate = "disconnect/{session}", ResponseFormat = WebMessageFormat.Json)]
         LoginResponse disconnect(String session);

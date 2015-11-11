@@ -13,12 +13,16 @@ namespace Checkers.Models
 
         int userID=-1;
         String login;
-        String name;
+        public String name;
         String password;
         String session = "";
         Boolean authorized=false;
         int ELO = 1000; //ranking punktowy
-        
+
+        public mUser(String name)
+        {
+            this.name = name;
+        }
         public mUser(String session, int userID)
         {
             this.session = session;
@@ -38,12 +42,17 @@ namespace Checkers.Models
             this.password = password;
             this.session = session;
         }
+
+        public mUser()
+        {
+        }
         public void authorize() { authorized = true; }
         public void unauthorize() { authorized = false; }
         public Boolean isAuthorized() { return authorized; }
         public void setSession(String session) { this.session = session; }
         public String getSession() { return session; }
         public int getId() { return userID; }
+        public String getName() { return name; }
 
 
 
