@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Checkers.Services.Game" CodeBehind="Game.svc.cs" %>
