@@ -13,15 +13,15 @@ namespace Checkers.Interfaces
     public interface ICommunity
     {
         //Dodac active przy connect
-        //http://156.17.130.217/Pz/Services/Login.svc/checkActivePlayers/8a502001-7291-4b8b-9ff1-d5617be4943e
+        //http://156.17.130.217/Pz/Services/Community.svc/checkActivePlayers/8a502001-7291-4b8b-9ff1-d5617be4943e
         [OperationContract]
         [WebGet(UriTemplate = "checkActivePlayers/{sessionToken}", ResponseFormat = WebMessageFormat.Json)]
         PlayersResponse checkActivePlayers(String sessionToken);
-
+        //http://156.17.130.217/Pz/Services/Community.svc/checkActiveFriends/8a502001-7291-4b8b-9ff1-d5617be4943e
         [OperationContract]
         [WebGet(UriTemplate = "checkActiveFriends/{sessionToken}", ResponseFormat = WebMessageFormat.Json)]
         PlayersResponse checkActiveFriends(String sessionToken);
-
+        //http://156.17.130.217/Pz/Services/Community.svc/getFriends/8a502001-7291-4b8b-9ff1-d5617be4943e
         [OperationContract]
         [WebGet(UriTemplate = "getFriends/{sessionToken}", ResponseFormat = WebMessageFormat.Json)]
         PlayersResponse getFriends(String sessionToken);
