@@ -52,24 +52,35 @@ namespace Checkers.App_Data
             return user;
         }
         //Rejestracja uzytkownika
-        public static mUser register(String name, String surname, String login, String password)
+        public static mUser register(String name, String login, String password)
         {
             //Mozna dodac jeszcze jakies warunki dotyczace hasla
             int userid = -1;
-            if((int)Uta.LoginExists(login)==1) return null;
-            mUser newUser=new mUser(name, surname, login, password);
-            newUser.authorize();
+            int message = 0;
+            if ((int)Uta.LoginExists(login) > 0)
+            {
+                message -= 5;
+                if ((int)Uta.NameExists(name) == 1) message -= 3;
+                mUser taken = new mUser("", message);
+                return taken;
+            }
+            if ((int)Uta.NameExists(name) > 0)
+            {
+                message -= 3;
+                mUser taken = new mUser("", message);
+                return taken;
+            }
+            
             String guid;
             do
             {
                 guid = Guid.NewGuid() + "";
             }
-            while ((int)Uta.CheckSession(guid) != 0);
-           
-            newUser.setSession(guid);
-            //userid = (int)Uta.NewUser(name, login, password, guid);
-            //,getAccessDate(DateTime.Now)
-            Uta.NewSession(guid,true, userid);
+            while ((int)Uta.CheckSession(guid) != 0);           
+            userid = (int)Uta.NewUser(name, login, password, guid);
+
+            mUser newUser=new mUser(userid,name, login, password,guid);
+            newUser.authorize();
             return newUser;
         }
         public static String czas()

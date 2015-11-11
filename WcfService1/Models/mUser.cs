@@ -14,7 +14,6 @@ namespace Checkers.Models
         int userID=-1;
         String login;
         String name;
-        String surname;
         String password;
         String session = "";
         Boolean authorized=false;
@@ -31,12 +30,13 @@ namespace Checkers.Models
             this.password = password;
             this.userID = userID;
         }
-        public mUser(String name, String surname, String login, String password)
+        public mUser(int userID,String name, String login, String password, String session)
         {
+            this.userID = userID;
             this.name = name;
-            this.surname = surname;
             this.login = login;
             this.password = password;
+            this.session = session;
         }
         public void authorize() { authorized = true; }
         public void unauthorize() { authorized = false; }

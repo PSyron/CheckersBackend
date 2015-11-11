@@ -28,6 +28,10 @@ namespace Checkers.Interfaces
         LoginResponse logOff(String session);
 
         [OperationContract]
+        [WebGet(UriTemplate = "register/{name}/{login}/{password}", ResponseFormat = WebMessageFormat.Json)]
+        RegisterResponse register(String name, String login, String password);
+
+        [OperationContract]
         [WebGet(UriTemplate = "test", ResponseFormat = WebMessageFormat.Json)]
         LoginResponse test();
         [OperationContract]
@@ -47,6 +51,16 @@ namespace Checkers.Interfaces
             public String Session { get; set; }
             [DataMember]
             public Boolean Authorized { get; set; }
+        }
+        [DataContract]
+        public class RegisterResponse
+        {
+            [DataMember]
+            public String Session { get; set; }
+            [DataMember]
+            public Boolean Authorized { get; set; }
+            [DataMember]
+            public String Message { get; set; }
         }
     }
 

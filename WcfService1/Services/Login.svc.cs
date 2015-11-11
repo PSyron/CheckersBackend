@@ -14,7 +14,7 @@ namespace Checkers.Services
     /// </summary>
     public class Login : ILogin
     {
-        public LoginResponse session(string session)
+        public LoginResponse session(String session)
         {
             Boolean authorized = false;
             mUser temp = DBControler.logIn(session);
@@ -25,9 +25,9 @@ namespace Checkers.Services
                 Authorized = authorized
             };
         
-        }     
-        
-        public LoginResponse logIn(string login, string password)
+        }
+
+        public LoginResponse logIn(String login, String password)
         {
             String session = "";
             Boolean authorized = false;
@@ -43,7 +43,7 @@ namespace Checkers.Services
                 Authorized = authorized
             };
         }
-        public LoginResponse logOff(string session)
+        public LoginResponse logOff(String session)
         {
             Boolean authorized = false;
             mUser temp = DBControler.logOff(session);
@@ -58,8 +58,32 @@ namespace Checkers.Services
                 Authorized = authorized
             };
 
-        } 
-        
+        }
+        public RegisterResponse register(String name, String login, String password)
+        {
+            String session = "";
+            Boolean authorized = false;
+            int option=1;
+            String message="Failed to add user";
+            mUser user = DBControler.register(name,login, password);
+            if (user != null)
+            {
+                session = user.getSession();
+                authorized = user.isAuthorized();
+                option = user.getId();
+            }
+            if (option > 0) message = "User added successfully";
+            else if (option == -3) message = "Name already taken";
+            else if (option == -5) message = "Login already taken";
+            else if (option == -8) message = "Login and name already taken";
+
+            return new RegisterResponse
+            {
+                Session = session,
+                Authorized = authorized,
+                Message = message
+            };
+        }
         //Sprawdzenie odpowiedzi serwisu
         public LoginResponse test2()
         {

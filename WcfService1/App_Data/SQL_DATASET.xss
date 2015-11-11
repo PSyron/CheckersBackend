@@ -7,7 +7,7 @@
 <DiagramLayout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ex:showrelationlabel="False" ViewPortX="-10" ViewPortY="-36" xmlns:ex="urn:schemas-microsoft-com:xml-msdatasource-layout-extended" xmlns="urn:schemas-microsoft-com:xml-msdatasource-layout">
   <Shapes>
     <Shape ID="DesignTable:tCheckers" ZOrder="22" X="545" Y="22" Height="210" Width="201" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="159" />
-    <Shape ID="DesignTable:tUsers" ZOrder="1" X="1182" Y="170" Height="400" Width="213" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="178" />
+    <Shape ID="DesignTable:tUsers" ZOrder="1" X="1182" Y="170" Height="400" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="178" />
     <Shape ID="DesignTable:tColors" ZOrder="4" X="784" Y="13" Height="115" Width="186" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
     <Shape ID="DesignTable:tGames" ZOrder="2" X="1856" Y="174" Height="191" Width="188" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="140" />
     <Shape ID="DesignTable:tInvites" ZOrder="7" X="1975" Y="593" Height="134" Width="188" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="83" />
@@ -33,7 +33,7 @@
     <Connector ID="DesignRelation:fk_Player1" ZOrder="18" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>1395</X>
+          <X>1482</X>
           <Y>203</Y>
         </Point>
         <Point>
@@ -45,7 +45,7 @@
     <Connector ID="DesignRelation:fk_Player2" ZOrder="17" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>1395</X>
+          <X>1482</X>
           <Y>195</Y>
         </Point>
         <Point>

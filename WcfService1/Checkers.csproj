@@ -119,7 +119,6 @@
     <Content Include="Services\Game.svc" />
     <Content Include="Services\Logger.svc" />
     <Content Include="Services\Login.svc" />
-    <Content Include="Services\Register.svc" />
     <Content Include="Services\Table.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -131,7 +130,7 @@
       <DependentUpon>SQL_DATASET.xsd</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="App_Data\SQL_DATASET1.Designer.cs">
+    <Compile Include="App_Data\SQL_DATASET.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SQL_DATASET.xsd</DependentUpon>
@@ -174,7 +173,6 @@
       <DependentUpon>Game.svc</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IGame.cs" />
-    <Compile Include="Interfaces\IRegister.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\ITable.cs" />
     <Compile Include="Services\Logger.svc.cs">
@@ -182,9 +180,6 @@
     </Compile>
     <Compile Include="Services\Login.svc.cs">
       <DependentUpon>Login.svc</DependentUpon>
-    </Compile>
-    <Compile Include="Services\Register.svc.cs">
-      <DependentUpon>Register.svc</DependentUpon>
     </Compile>
     <Compile Include="Services\Table.svc.cs">
       <DependentUpon>Table.svc</DependentUpon>
@@ -212,7 +207,7 @@
     <None Include="App_Data\SQL_DATASET.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>SQL_DATASET1.Designer.cs</LastGenOutput>
+      <LastGenOutput>SQL_DATASET.Designer.cs</LastGenOutput>
     </None>
     <Content Include="App_Data\SQL_DATASET.xss">
       <DependentUpon>SQL_DATASET.xsd</DependentUpon>
