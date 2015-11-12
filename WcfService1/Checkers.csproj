@@ -120,7 +120,7 @@
       <DependentUpon>SQL_DATASET.xsd</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="App_Data\SQL_DATASET1.Designer.cs">
+    <Compile Include="App_Data\SQL_DATASET.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SQL_DATASET.xsd</DependentUpon>
@@ -196,7 +196,7 @@
     <None Include="App_Data\SQL_DATASET.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>SQL_DATASET1.Designer.cs</LastGenOutput>
+      <LastGenOutput>SQL_DATASET.Designer.cs</LastGenOutput>
     </None>
     <Content Include="App_Data\SQL_DATASET.xss">
       <DependentUpon>SQL_DATASET.xsd</DependentUpon>

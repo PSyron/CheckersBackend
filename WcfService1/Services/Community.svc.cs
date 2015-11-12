@@ -74,6 +74,40 @@ namespace Checkers.Services
                 });
             return usersJson;
         }
+
+            public FriendResponse addFriend(String sessionToken, String friendName)
+            {
+                Login LoginService = new Login();
+                Boolean added = false;
+                if (LoginService.session(sessionToken).Authorized == true)
+                {
+                    added = DBControler.addFriend(sessionToken, friendName);
+                }
+                else sessionToken = "";
+                return new FriendResponse
+                {
+                    Session = sessionToken,
+                    Successful = added
+                };
+            }
+
+            public FriendResponse removeFriend(String sessionToken, String friendName)
+            {
+                Login LoginService = new Login();
+                Boolean removed = false;
+                if (LoginService.session(sessionToken).Authorized == true)
+                {
+                    removed = DBControler.removeFriend(sessionToken, friendName);
+                }
+                else sessionToken = "";
+                return new FriendResponse
+                {
+                    Session = sessionToken,
+                    Successful = removed
+                };
+            }
+
+
         }
 
 }

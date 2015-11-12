@@ -17,14 +17,25 @@ namespace Checkers.Interfaces
         [OperationContract]
         [WebGet(UriTemplate = "checkActivePlayers/{sessionToken}", ResponseFormat = WebMessageFormat.Json)]
         PlayersResponse checkActivePlayers(String sessionToken);
+
         //http://156.17.130.217/Pz/Services/Community.svc/checkActiveFriends/8a502001-7291-4b8b-9ff1-d5617be4943e
         [OperationContract]
         [WebGet(UriTemplate = "checkActiveFriends/{sessionToken}", ResponseFormat = WebMessageFormat.Json)]
         PlayersResponse checkActiveFriends(String sessionToken);
+
         //http://156.17.130.217/Pz/Services/Community.svc/getFriends/8a502001-7291-4b8b-9ff1-d5617be4943e
         [OperationContract]
         [WebGet(UriTemplate = "getFriends/{sessionToken}", ResponseFormat = WebMessageFormat.Json)]
         PlayersResponse getFriends(String sessionToken);
+
+
+        [OperationContract]
+        [WebGet(UriTemplate = "addFriend/{sessionToken}/{friendName}", ResponseFormat = WebMessageFormat.Json)]
+        FriendResponse addFriend(String sessionToken, String friendName);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "removeFriend/{sessionToken}/{friendName}", ResponseFormat = WebMessageFormat.Json)]
+        FriendResponse removeFriend(String sessionToken, String friendName);
     }
 
     [DataContract]
@@ -35,4 +46,13 @@ namespace Checkers.Interfaces
         [DataMember]
         public List<mUser> Users { get; set; }
     }
+    [DataContract]
+    public class FriendResponse
+    {
+        [DataMember]
+        public String Session { get; set; }
+        [DataMember]
+        public Boolean Successful { get; set; }
+    }
+
 }

@@ -121,7 +121,35 @@ namespace Checkers.App_Data
             return users;
         }
 
+        public static Boolean addFriend(String sessionToken, String nameFriend)
+        {
+            Boolean added=false;
+            int idUser = -1;
+            int idUserFriend = -1;
+            idUser = (int)Uta.SessionUserId(sessionToken);
+            idUserFriend = (int)Uta.NameUserId(nameFriend);           
+            if (UFta.CheckFriend(idUser, idUserFriend) == 0)
+            {
+                var db = UFta.NewFriend(idUser, idUserFriend);
+                if (db > 0) added = true;
+            }
+            return added;
+        }
 
+        public static Boolean removeFriend(String sessionToken, String nameFriend)
+        {
+            Boolean removed = false;
+            int idUser = -1;
+            int idUserFriend = -1;
+            idUser = (int)Uta.SessionUserId(sessionToken);
+            idUserFriend = (int)Uta.NameUserId(nameFriend);            
+            if (UFta.CheckFriend(idUser, idUserFriend)>0)
+            {
+                var db = UFta.DeleteFriend(idUser, idUserFriend);
+                if (db > 0) removed = true;
+            }
+            return removed;
+        }
 
 
 
