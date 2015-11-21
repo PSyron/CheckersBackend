@@ -46,12 +46,6 @@ namespace Checkers.App_Data {
         
         private global::System.Data.DataRelation relationfk_Color;
         
-        private global::System.Data.DataRelation relationfk_Player1;
-        
-        private global::System.Data.DataRelation relationfk_Player2;
-        
-        private global::System.Data.DataRelation relationfk_GameInvite;
-        
         private global::System.Data.DataRelation relationfk_UserInvited;
         
         private global::System.Data.DataRelation relationfk_Participant;
@@ -60,13 +54,19 @@ namespace Checkers.App_Data {
         
         private global::System.Data.DataRelation relationfk_UserRole;
         
-        private global::System.Data.DataRelation relationfk_GameTable;
-        
         private global::System.Data.DataRelation relationfk_UserTableAdmin;
         
         private global::System.Data.DataRelation relationfk_User;
         
         private global::System.Data.DataRelation relationfk_UserFriend;
+        
+        private global::System.Data.DataRelation relationfk_GameTable;
+        
+        private global::System.Data.DataRelation relationfk_GameInvite;
+        
+        private global::System.Data.DataRelation relationfk_Player2;
+        
+        private global::System.Data.DataRelation relationfk_Player1;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -435,17 +435,17 @@ namespace Checkers.App_Data {
                 }
             }
             this.relationfk_Color = this.Relations["fk_Color"];
-            this.relationfk_Player1 = this.Relations["fk_Player1"];
-            this.relationfk_Player2 = this.Relations["fk_Player2"];
-            this.relationfk_GameInvite = this.Relations["fk_GameInvite"];
             this.relationfk_UserInvited = this.Relations["fk_UserInvited"];
             this.relationfk_Participant = this.Relations["fk_Participant"];
             this.relationfk_Table = this.Relations["fk_Table"];
             this.relationfk_UserRole = this.Relations["fk_UserRole"];
-            this.relationfk_GameTable = this.Relations["fk_GameTable"];
             this.relationfk_UserTableAdmin = this.Relations["fk_UserTableAdmin"];
             this.relationfk_User = this.Relations["fk_User"];
             this.relationfk_UserFriend = this.Relations["fk_UserFriend"];
+            this.relationfk_GameTable = this.Relations["fk_GameTable"];
+            this.relationfk_GameInvite = this.Relations["fk_GameInvite"];
+            this.relationfk_Player2 = this.Relations["fk_Player2"];
+            this.relationfk_Player1 = this.Relations["fk_Player1"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -480,18 +480,6 @@ namespace Checkers.App_Data {
                         this.tabletColors.IdColorColumn}, new global::System.Data.DataColumn[] {
                         this.tabletCheckers.IdColor_Column}, false);
             this.Relations.Add(this.relationfk_Color);
-            this.relationfk_Player1 = new global::System.Data.DataRelation("fk_Player1", new global::System.Data.DataColumn[] {
-                        this.tabletUsers.IdUserColumn}, new global::System.Data.DataColumn[] {
-                        this.tabletGames.IdUser1_Column}, false);
-            this.Relations.Add(this.relationfk_Player1);
-            this.relationfk_Player2 = new global::System.Data.DataRelation("fk_Player2", new global::System.Data.DataColumn[] {
-                        this.tabletUsers.IdUserColumn}, new global::System.Data.DataColumn[] {
-                        this.tabletGames.IdUser2_Column}, false);
-            this.Relations.Add(this.relationfk_Player2);
-            this.relationfk_GameInvite = new global::System.Data.DataRelation("fk_GameInvite", new global::System.Data.DataColumn[] {
-                        this.tabletGames.IdGameColumn}, new global::System.Data.DataColumn[] {
-                        this.tabletInvites.IdGame_Column}, false);
-            this.Relations.Add(this.relationfk_GameInvite);
             this.relationfk_UserInvited = new global::System.Data.DataRelation("fk_UserInvited", new global::System.Data.DataColumn[] {
                         this.tabletUsers.IdUserColumn}, new global::System.Data.DataColumn[] {
                         this.tabletInvites.IdUserInvited_Column}, false);
@@ -508,10 +496,6 @@ namespace Checkers.App_Data {
                         this.tabletUserRoles.IdUserRoleColumn}, new global::System.Data.DataColumn[] {
                         this.tabletTableParticipants.IdUserRole_Column}, false);
             this.Relations.Add(this.relationfk_UserRole);
-            this.relationfk_GameTable = new global::System.Data.DataRelation("fk_GameTable", new global::System.Data.DataColumn[] {
-                        this.tabletGames.IdGameColumn}, new global::System.Data.DataColumn[] {
-                        this.tabletTables.IdGame_Column}, false);
-            this.Relations.Add(this.relationfk_GameTable);
             this.relationfk_UserTableAdmin = new global::System.Data.DataRelation("fk_UserTableAdmin", new global::System.Data.DataColumn[] {
                         this.tabletUsers.IdUserColumn}, new global::System.Data.DataColumn[] {
                         this.tabletTables.IdUser_Column}, false);
@@ -524,6 +508,22 @@ namespace Checkers.App_Data {
                         this.tabletUsers.IdUserColumn}, new global::System.Data.DataColumn[] {
                         this.tabletUserFriends.IdUserFriend_Column}, false);
             this.Relations.Add(this.relationfk_UserFriend);
+            this.relationfk_GameTable = new global::System.Data.DataRelation("fk_GameTable", new global::System.Data.DataColumn[] {
+                        this.tabletGames.IdGameColumn}, new global::System.Data.DataColumn[] {
+                        this.tabletTables.IdGame_Column}, false);
+            this.Relations.Add(this.relationfk_GameTable);
+            this.relationfk_GameInvite = new global::System.Data.DataRelation("fk_GameInvite", new global::System.Data.DataColumn[] {
+                        this.tabletGames.IdGameColumn}, new global::System.Data.DataColumn[] {
+                        this.tabletInvites.IdGame_Column}, false);
+            this.Relations.Add(this.relationfk_GameInvite);
+            this.relationfk_Player2 = new global::System.Data.DataRelation("fk_Player2", new global::System.Data.DataColumn[] {
+                        this.tabletUsers.IdUserColumn}, new global::System.Data.DataColumn[] {
+                        this.tabletGames.IdUser2_Column}, false);
+            this.Relations.Add(this.relationfk_Player2);
+            this.relationfk_Player1 = new global::System.Data.DataRelation("fk_Player1", new global::System.Data.DataColumn[] {
+                        this.tabletUsers.IdUserColumn}, new global::System.Data.DataColumn[] {
+                        this.tabletGames.IdUser1_Column}, false);
+            this.Relations.Add(this.relationfk_Player1);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4196,28 +4196,6 @@ namespace Checkers.App_Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tGamesRow[] GettGamesRowsByfk_Player1() {
-                if ((this.Table.ChildRelations["fk_Player1"] == null)) {
-                    return new tGamesRow[0];
-                }
-                else {
-                    return ((tGamesRow[])(base.GetChildRows(this.Table.ChildRelations["fk_Player1"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tGamesRow[] GettGamesRowsByfk_Player2() {
-                if ((this.Table.ChildRelations["fk_Player2"] == null)) {
-                    return new tGamesRow[0];
-                }
-                else {
-                    return ((tGamesRow[])(base.GetChildRows(this.Table.ChildRelations["fk_Player2"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public tInvitesRow[] GettInvitesRows() {
                 if ((this.Table.ChildRelations["fk_UserInvited"] == null)) {
                     return new tInvitesRow[0];
@@ -4268,6 +4246,28 @@ namespace Checkers.App_Data {
                 }
                 else {
                     return ((tUserFriendsRow[])(base.GetChildRows(this.Table.ChildRelations["fk_UserFriend"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public tGamesRow[] GettGamesRowsByfk_Player2() {
+                if ((this.Table.ChildRelations["fk_Player2"] == null)) {
+                    return new tGamesRow[0];
+                }
+                else {
+                    return ((tGamesRow[])(base.GetChildRows(this.Table.ChildRelations["fk_Player2"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public tGamesRow[] GettGamesRowsByfk_Player1() {
+                if ((this.Table.ChildRelations["fk_Player1"] == null)) {
+                    return new tGamesRow[0];
+                }
+                else {
+                    return ((tGamesRow[])(base.GetChildRows(this.Table.ChildRelations["fk_Player1"])));
                 }
             }
         }
@@ -4424,23 +4424,23 @@ namespace Checkers.App_Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tUsersRow tUsersRowByfk_Player1 {
-                get {
-                    return ((tUsersRow)(this.GetParentRow(this.Table.ParentRelations["fk_Player1"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["fk_Player1"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public tUsersRow tUsersRowByfk_Player2 {
                 get {
                     return ((tUsersRow)(this.GetParentRow(this.Table.ParentRelations["fk_Player2"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["fk_Player2"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public tUsersRow tUsersRowByfk_Player1 {
+                get {
+                    return ((tUsersRow)(this.GetParentRow(this.Table.ParentRelations["fk_Player1"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["fk_Player1"]);
                 }
             }
             
@@ -4458,23 +4458,23 @@ namespace Checkers.App_Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tInvitesRow[] GettInvitesRows() {
-                if ((this.Table.ChildRelations["fk_GameInvite"] == null)) {
-                    return new tInvitesRow[0];
-                }
-                else {
-                    return ((tInvitesRow[])(base.GetChildRows(this.Table.ChildRelations["fk_GameInvite"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public tTablesRow[] GettTablesRows() {
                 if ((this.Table.ChildRelations["fk_GameTable"] == null)) {
                     return new tTablesRow[0];
                 }
                 else {
                     return ((tTablesRow[])(base.GetChildRows(this.Table.ChildRelations["fk_GameTable"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public tInvitesRow[] GettInvitesRows() {
+                if ((this.Table.ChildRelations["fk_GameInvite"] == null)) {
+                    return new tInvitesRow[0];
+                }
+                else {
+                    return ((tInvitesRow[])(base.GetChildRows(this.Table.ChildRelations["fk_GameInvite"])));
                 }
             }
         }
@@ -4533,23 +4533,23 @@ namespace Checkers.App_Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tGamesRow tGamesRow {
-                get {
-                    return ((tGamesRow)(this.GetParentRow(this.Table.ParentRelations["fk_GameInvite"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["fk_GameInvite"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public tUsersRow tUsersRow {
                 get {
                     return ((tUsersRow)(this.GetParentRow(this.Table.ParentRelations["fk_UserInvited"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["fk_UserInvited"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public tGamesRow tGamesRow {
+                get {
+                    return ((tGamesRow)(this.GetParentRow(this.Table.ParentRelations["fk_GameInvite"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["fk_GameInvite"]);
                 }
             }
             
@@ -4850,23 +4850,23 @@ namespace Checkers.App_Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tGamesRow tGamesRow {
-                get {
-                    return ((tGamesRow)(this.GetParentRow(this.Table.ParentRelations["fk_GameTable"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["fk_GameTable"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public tUsersRow tUsersRow {
                 get {
                     return ((tUsersRow)(this.GetParentRow(this.Table.ParentRelations["fk_UserTableAdmin"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["fk_UserTableAdmin"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public tGamesRow tGamesRow {
+                get {
+                    return ((tGamesRow)(this.GetParentRow(this.Table.ParentRelations["fk_GameTable"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["fk_GameTable"]);
                 }
             }
             
@@ -5488,10 +5488,11 @@ namespace Checkers.App_Data.SQL_DATASETTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdPawn", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdPawn", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [tCheckers] ([IdPawn], [IdColor_], [IsQueen], [InGame], [PawnColumn]," +
-                " [PawnRow]) VALUES (@IdPawn, @IdColor_, @IsQueen, @InGame, @PawnColumn, @PawnRow" +
-                ")";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [tCheckers] ([IdChecker], [IdPawn], [IdColor_], [IsQueen], [InGame], " +
+                "[PawnColumn], [PawnRow]) VALUES (@IdChecker, @IdPawn, @IdColor_, @IsQueen, @InGa" +
+                "me, @PawnColumn, @PawnRow)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdChecker", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdChecker", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdPawn", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdPawn", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdColor_", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdColor_", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsQueen", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsQueen", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -5500,10 +5501,9 @@ namespace Checkers.App_Data.SQL_DATASETTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PawnRow", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PawnRow", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [tCheckers] SET [IdPawn] = @IdPawn, [IdColor_] = @IdColor_, [IsQueen] = @I" +
-                "sQueen, [InGame] = @InGame, [PawnColumn] = @PawnColumn, [PawnRow] = @PawnRow WHE" +
-                "RE (([IdChecker] = @Original_IdChecker) AND ([IdPawn] = @Original_IdPawn))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [tCheckers] SET [IdChecker] = @IdChecker, [IdPawn] = @IdPawn, [IdColor_] = @IdColor_, [IsQueen] = @IsQueen, [InGame] = @InGame, [PawnColumn] = @PawnColumn, [PawnRow] = @PawnRow WHERE (([IdChecker] = @Original_IdChecker) AND ([IdPawn] = @Original_IdPawn))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdChecker", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdChecker", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdPawn", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdPawn", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdColor_", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdColor_", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsQueen", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsQueen", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -5524,7 +5524,7 @@ namespace Checkers.App_Data.SQL_DATASETTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[6];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[7];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT        IdChecker, IdPawn, IdColor_, IsQueen, InGame, PawnColumn, PawnRow\r\n" +
@@ -5532,49 +5532,54 @@ namespace Checkers.App_Data.SQL_DATASETTableAdapters {
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "SELECT        IdChecker, IdPawn, IdColor_, IsQueen, InGame, PawnColumn, PawnRow\r\n" +
-                "FROM            tCheckers\r\nWHERE InGame=1 AND IdChecker=@IdChecker AND PawnColum" +
-                "n=@PawnColumn AND PawnRow=@PawnRow";
+            this._commandCollection[1].CommandText = "SELECT        MAX(IdChecker) AS Id\r\nFROM            tCheckers;";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdChecker", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdChecker", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PawnColumn", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "PawnColumn", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PawnRow", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "PawnRow", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "INSERT INTO tCheckers\r\n                         (IdPawn, IdColor_, IsQueen, InGam" +
-                "e, PawnColumn, PawnRow)\r\nVALUES        (@IdPawn,@IdColor_,@IsQueen,@InGame,@Pawn" +
-                "Column,@PawnRow);\r\nSELECT @@IDENTITY;";
+            this._commandCollection[2].CommandText = "SELECT IdChecker, IdColor_, IdPawn, InGame, IsQueen, PawnColumn, PawnRow FROM tCh" +
+                "eckers WHERE (InGame = 1) AND (IdChecker = @IdChecker) AND (PawnColumn = @PawnCo" +
+                "lumn) AND (PawnRow = @PawnRow)";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdPawn", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdPawn", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdColor_", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdColor_", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsQueen", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.Input, 0, 0, "IsQueen", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@InGame", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.Input, 0, 0, "InGame", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdChecker", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdChecker", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PawnColumn", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "PawnColumn", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PawnRow", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "PawnRow", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = "UPDATE       tCheckers\r\nSET                PawnColumn = @PawnColumn, PawnRow = @P" +
-                "awnRow\r\nWHERE        (IdChecker = @Original_IdChecker) AND (IdPawn = @Original_I" +
-                "dPawn)";
+            this._commandCollection[3].CommandText = "INSERT INTO tCheckers\r\n                         (IdChecker,IdPawn, IdColor_, IsQu" +
+                "een, InGame, PawnColumn, PawnRow)\r\nVALUES        (@IdChecker,@IdPawn,@IdColor_,@" +
+                "IsQueen,@InGame,@PawnColumn,@PawnRow);\r\nSELECT @@IDENTITY;";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdChecker", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdChecker", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdPawn", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdPawn", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdColor_", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdColor_", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsQueen", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.Input, 0, 0, "IsQueen", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@InGame", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.Input, 0, 0, "InGame", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PawnColumn", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "PawnColumn", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PawnRow", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "PawnRow", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdChecker", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdChecker", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdPawn", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdPawn", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[4].Connection = this.Connection;
-            this._commandCollection[4].CommandText = "UPDATE       tCheckers\r\nSET                InGame = false\r\nWHERE        (IdChecke" +
-                "r = @Original_IdChecker) AND (IdPawn = @Original_IdPawn)";
+            this._commandCollection[4].CommandText = "UPDATE       tCheckers\r\nSET                PawnColumn = @PawnColumn, PawnRow = @P" +
+                "awnRow\r\nWHERE        (IdChecker = @Original_IdChecker) AND (IdPawn = @Original_I" +
+                "dPawn)";
             this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PawnColumn", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "PawnColumn", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PawnRow", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "PawnRow", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdChecker", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdChecker", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdPawn", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdPawn", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._commandCollection[5] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[5].Connection = this.Connection;
-            this._commandCollection[5].CommandText = "UPDATE       tCheckers\r\nSET                IsQueen = 1\r\nWHERE        (IdChecker =" +
-                " @Original_IdChecker) AND (IdPawn = @Original_IdPawn)";
+            this._commandCollection[5].CommandText = "UPDATE       tCheckers\r\nSET                InGame = false\r\nWHERE        (IdChecke" +
+                "r = @Original_IdChecker) AND (IdPawn = @Original_IdPawn)";
             this._commandCollection[5].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdChecker", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdChecker", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdPawn", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdPawn", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._commandCollection[6] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[6].Connection = this.Connection;
+            this._commandCollection[6].CommandText = "UPDATE       tCheckers\r\nSET                IsQueen = 1\r\nWHERE        (IdChecker =" +
+                " @Original_IdChecker) AND (IdPawn = @Original_IdPawn)";
+            this._commandCollection[6].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[6].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdChecker", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdChecker", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._commandCollection[6].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdPawn", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdPawn", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5606,7 +5611,7 @@ namespace Checkers.App_Data.SQL_DATASETTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual SQL_DATASET.tCheckersDataTable PawnFind(int IdChecker, global::System.Nullable<int> PawnColumn, global::System.Nullable<int> PawnRow) {
-            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand = this.CommandCollection[2];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(IdChecker));
             if ((PawnColumn.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((int)(PawnColumn.Value));
@@ -5681,37 +5686,38 @@ namespace Checkers.App_Data.SQL_DATASETTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int IdPawn, global::System.Nullable<int> IdColor_, global::System.Nullable<bool> IsQueen, global::System.Nullable<bool> InGame, global::System.Nullable<int> PawnColumn, global::System.Nullable<int> PawnRow) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(IdPawn));
+        public virtual int Insert(int IdChecker, int IdPawn, global::System.Nullable<int> IdColor_, global::System.Nullable<bool> IsQueen, global::System.Nullable<bool> InGame, global::System.Nullable<int> PawnColumn, global::System.Nullable<int> PawnRow) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(IdChecker));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(IdPawn));
             if ((IdColor_.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((int)(IdColor_.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            if ((IsQueen.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((bool)(IsQueen.Value));
+                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(IdColor_.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            if ((InGame.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((bool)(InGame.Value));
+            if ((IsQueen.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((bool)(IsQueen.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
-            if ((PawnColumn.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((int)(PawnColumn.Value));
+            if ((InGame.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((bool)(InGame.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            if ((PawnRow.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((int)(PawnRow.Value));
+            if ((PawnColumn.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((int)(PawnColumn.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((PawnRow.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((int)(PawnRow.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -5733,40 +5739,41 @@ namespace Checkers.App_Data.SQL_DATASETTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int IdPawn, global::System.Nullable<int> IdColor_, global::System.Nullable<bool> IsQueen, global::System.Nullable<bool> InGame, global::System.Nullable<int> PawnColumn, global::System.Nullable<int> PawnRow, int Original_IdChecker, int Original_IdPawn) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(IdPawn));
+        public virtual int Update(int IdChecker, int IdPawn, global::System.Nullable<int> IdColor_, global::System.Nullable<bool> IsQueen, global::System.Nullable<bool> InGame, global::System.Nullable<int> PawnColumn, global::System.Nullable<int> PawnRow, int Original_IdChecker, int Original_IdPawn) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(IdChecker));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(IdPawn));
             if ((IdColor_.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(IdColor_.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            if ((IsQueen.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((bool)(IsQueen.Value));
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(IdColor_.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            if ((InGame.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((bool)(InGame.Value));
+            if ((IsQueen.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((bool)(IsQueen.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
-            if ((PawnColumn.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(PawnColumn.Value));
+            if ((InGame.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((bool)(InGame.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            if ((PawnRow.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(PawnRow.Value));
+            if ((PawnColumn.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(PawnColumn.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_IdChecker));
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_IdPawn));
+            if ((PawnRow.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(PawnRow.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_IdChecker));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_IdPawn));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -5788,46 +5795,14 @@ namespace Checkers.App_Data.SQL_DATASETTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(global::System.Nullable<int> IdColor_, global::System.Nullable<bool> IsQueen, global::System.Nullable<bool> InGame, global::System.Nullable<int> PawnColumn, global::System.Nullable<int> PawnRow, int Original_IdChecker, int Original_IdPawn) {
-            return this.Update(Original_IdPawn, IdColor_, IsQueen, InGame, PawnColumn, PawnRow, Original_IdChecker, Original_IdPawn);
+            return this.Update(Original_IdChecker, Original_IdPawn, IdColor_, IsQueen, InGame, PawnColumn, PawnRow, Original_IdChecker, Original_IdPawn);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, false)]
-        public virtual object PawnInsert(int IdPawn, global::System.Nullable<int> IdColor_, global::System.Nullable<bool> IsQueen, global::System.Nullable<bool> InGame, global::System.Nullable<int> PawnColumn, global::System.Nullable<int> PawnRow) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
-            command.Parameters[0].Value = ((int)(IdPawn));
-            if ((IdColor_.HasValue == true)) {
-                command.Parameters[1].Value = ((int)(IdColor_.Value));
-            }
-            else {
-                command.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            if ((IsQueen.HasValue == true)) {
-                command.Parameters[2].Value = ((bool)(IsQueen.Value));
-            }
-            else {
-                command.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            if ((InGame.HasValue == true)) {
-                command.Parameters[3].Value = ((bool)(InGame.Value));
-            }
-            else {
-                command.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            if ((PawnColumn.HasValue == true)) {
-                command.Parameters[4].Value = ((int)(PawnColumn.Value));
-            }
-            else {
-                command.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            if ((PawnRow.HasValue == true)) {
-                command.Parameters[5].Value = ((int)(PawnRow.Value));
-            }
-            else {
-                command.Parameters[5].Value = global::System.DBNull.Value;
-            }
+        public virtual global::System.Nullable<int> GetLatestCheckerId() {
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -5844,11 +5819,66 @@ namespace Checkers.App_Data.SQL_DATASETTableAdapters {
             }
             if (((returnValue == null) 
                         || (returnValue.GetType() == typeof(global::System.DBNull)))) {
-                return null;
+                return new global::System.Nullable<int>();
             }
             else {
-                return ((object)(returnValue));
+                return new global::System.Nullable<int>(((int)(returnValue)));
             }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, false)]
+        public virtual int PawnInsert(int IdChecker, int IdPawn, global::System.Nullable<int> IdColor_, global::System.Nullable<bool> IsQueen, global::System.Nullable<bool> InGame, global::System.Nullable<int> PawnColumn, global::System.Nullable<int> PawnRow) {
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[3];
+            command.Parameters[0].Value = ((int)(IdChecker));
+            command.Parameters[1].Value = ((int)(IdPawn));
+            if ((IdColor_.HasValue == true)) {
+                command.Parameters[2].Value = ((int)(IdColor_.Value));
+            }
+            else {
+                command.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((IsQueen.HasValue == true)) {
+                command.Parameters[3].Value = ((bool)(IsQueen.Value));
+            }
+            else {
+                command.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((InGame.HasValue == true)) {
+                command.Parameters[4].Value = ((bool)(InGame.Value));
+            }
+            else {
+                command.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((PawnColumn.HasValue == true)) {
+                command.Parameters[5].Value = ((int)(PawnColumn.Value));
+            }
+            else {
+                command.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((PawnRow.HasValue == true)) {
+                command.Parameters[6].Value = ((int)(PawnRow.Value));
+            }
+            else {
+                command.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5856,7 +5886,7 @@ namespace Checkers.App_Data.SQL_DATASETTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
         public virtual int PawnMove(global::System.Nullable<int> PawnColumn, global::System.Nullable<int> PawnRow, int Original_IdChecker, int Original_IdPawn) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[3];
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[4];
             if ((PawnColumn.HasValue == true)) {
                 command.Parameters[0].Value = ((int)(PawnColumn.Value));
             }
@@ -5893,7 +5923,7 @@ namespace Checkers.App_Data.SQL_DATASETTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
         public virtual int PawnOut(int Original_IdChecker, int Original_IdPawn) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[4];
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[5];
             command.Parameters[0].Value = ((int)(Original_IdChecker));
             command.Parameters[1].Value = ((int)(Original_IdPawn));
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
@@ -5918,7 +5948,7 @@ namespace Checkers.App_Data.SQL_DATASETTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
         public virtual int PawnToQueen(int Original_IdChecker, int Original_IdPawn) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[5];
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[6];
             command.Parameters[0].Value = ((int)(Original_IdChecker));
             command.Parameters[1].Value = ((int)(Original_IdPawn));
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
@@ -7173,7 +7203,7 @@ namespace Checkers.App_Data.SQL_DATASETTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[4];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[5];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT IdGame, IdChecker_, IdUser1_, IdUser2_, User1Points, User2Points FROM dbo." +
@@ -7188,16 +7218,23 @@ namespace Checkers.App_Data.SQL_DATASETTableAdapters {
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdUser1_", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdUser1_", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "UPDATE       tGames\r\nSET                IUser1Points = IUser1Points +1\r\nWHERE    " +
-                "    (IdGame = @IdGame)";
+            this._commandCollection[2].CommandText = "UPDATE       tGames\r\nSET                IdUser2_ = @IdUser2_\r\nWHERE        (IdGam" +
+                "e = @Original_IdGame)";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdGame", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdGame", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdUser2_", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdUser2_", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdGame", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdGame", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = "UPDATE       tGames\r\nSET                IUser2Points = IUser2Points +1\r\nWHERE    " +
+            this._commandCollection[3].CommandText = "UPDATE       tGames\r\nSET                IUser1Points = IUser1Points +1\r\nWHERE    " +
                 "    (IdGame = @IdGame)";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdGame", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdGame", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[4].Connection = this.Connection;
+            this._commandCollection[4].CommandText = "UPDATE       tGames\r\nSET                IUser2Points = IUser2Points +1\r\nWHERE    " +
+                "    (IdGame = @IdGame)";
+            this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdGame", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdGame", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7342,10 +7379,46 @@ namespace Checkers.App_Data.SQL_DATASETTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, false)]
-        public virtual int NewGame(int IdChecker_, int IdUser1_) {
+        public virtual object NewGame(int IdChecker_, int IdUser1_) {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
             command.Parameters[0].Value = ((int)(IdChecker_));
             command.Parameters[1].Value = ((int)(IdUser1_));
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            object returnValue;
+            try {
+                returnValue = command.ExecuteScalar();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            if (((returnValue == null) 
+                        || (returnValue.GetType() == typeof(global::System.DBNull)))) {
+                return null;
+            }
+            else {
+                return ((object)(returnValue));
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
+        public virtual int SetPlayer2(global::System.Nullable<int> IdUser2_, int Original_IdGame) {
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
+            if ((IdUser2_.HasValue == true)) {
+                command.Parameters[0].Value = ((int)(IdUser2_.Value));
+            }
+            else {
+                command.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            command.Parameters[1].Value = ((int)(Original_IdGame));
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -7368,7 +7441,7 @@ namespace Checkers.App_Data.SQL_DATASETTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
         public virtual int WinPlayer1(int IdGame) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[3];
             command.Parameters[0].Value = ((int)(IdGame));
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -7392,7 +7465,7 @@ namespace Checkers.App_Data.SQL_DATASETTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
         public virtual int WinPlayer2(int IdGame) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[3];
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[4];
             command.Parameters[0].Value = ((int)(IdGame));
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -8860,7 +8933,7 @@ GROUP BY IdChecker_
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[3].Connection = this.Connection;
             this._commandCollection[3].CommandText = "INSERT INTO tTables\r\n                         (IdGame_, IdUser_)\r\nVALUES        (" +
-                "@IdGame_,@IdUser_)";
+                "@IdGame_,@IdUser_);\r\nSELECT @@IDENTITY;";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdGame_", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdGame_", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdUser_", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdUser_", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));

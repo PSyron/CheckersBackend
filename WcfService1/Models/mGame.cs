@@ -12,18 +12,22 @@ namespace Checkers.Models
     public class mGame
     {
         int idGame;
-        int idTable;
+        mChecker checker;
         int idPlayer1;
         int idPlayer2;
         int player1Points=0;
         int player2Points=0;
         int Scorelimit = 2;
-        
 
-        public mGame(int idGame, int idTable, int idPlayer1, int idPlayer2)
+        public mGame(int idGame, int idPlayer1, mChecker checker)
         {
             this.idGame = idGame;
-            this.idTable = idTable;
+            this.idPlayer1 = idPlayer1;
+            this.checker = checker;
+        }
+        public mGame(int idGame, int idPlayer1, int idPlayer2)
+        {
+            this.idGame = idGame;
             this.idPlayer1 = idPlayer1;
             this.idPlayer2 = idPlayer2;
         }
@@ -51,6 +55,9 @@ namespace Checkers.Models
             this.Scorelimit = Scorelimit;
         }
 
-
+        public void setPlayer2(int idPlayer2)
+        {
+            this.idPlayer2 = idPlayer2;
+        }
     }
 }

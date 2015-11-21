@@ -15,7 +15,9 @@ namespace Checkers.App_Data
         static SQL_DATASETTableAdapters.TableAdapterManager tAM = new SQL_DATASETTableAdapters.TableAdapterManager();
         static SQL_DATASETTableAdapters.tUsersTableAdapter Uta = new SQL_DATASETTableAdapters.tUsersTableAdapter();
         static SQL_DATASETTableAdapters.tUserFriendsTableAdapter UFta = new SQL_DATASETTableAdapters.tUserFriendsTableAdapter();
-        
+        static SQL_DATASETTableAdapters.tCheckersTableAdapter Cta = new SQL_DATASETTableAdapters.tCheckersTableAdapter();
+        static SQL_DATASETTableAdapters.tGamesTableAdapter Gta= new SQL_DATASETTableAdapters.tGamesTableAdapter();
+        static SQL_DATASETTableAdapters.tTablesTableAdapter Tta = new SQL_DATASETTableAdapters.tTablesTableAdapter();
         //Sprawdzenie prawidlowosci sesji
         public static mUser logIn(String session)
         {
@@ -151,12 +153,64 @@ namespace Checkers.App_Data
             return removed;
         }
 
+        public static mChecker newChecker()
+        {
+            mChecker checker;
+            var idChecker=Cta.GetLatestCheckerId();
+            if (idChecker != null)
+            {
+                checker = new mChecker(((int)idChecker)+1);
+            }
+            else
+            {
+                checker = new mChecker(1);
+            }
+            int idPawn=1;
+            while (idPawn <= 24)
+            {
+                mPawn pawn=checker.getPawn(idPawn);
+                Cta.PawnInsert(checker.getId(),pawn.getId(), pawn.getColor(), pawn.Queen(), pawn.isInGame(), pawn.getColumn(), pawn.getRow());
+                idPawn++;
+            }
+            return checker;
+        }
 
+        public static mGame newGame(int player)
+        {
+            mGame game;
+            mChecker checker=newChecker();
+            var idGame=Gta.NewGame(checker.getId(), player);
+            if (idGame != null)
+            {
+                game = new mGame((int)idGame, player, checker);
+            }
+            else return null;
+            return game;
+        }
 
+        public static Boolean addPlayer2(int idPlayer2,int idGame)
+        {
+            Boolean added=false;
+            int changed=Gta.SetPlayer2(idPlayer2, idGame);
+            if (changed > 0) added = true;
+            return added;
+        }
 
+        public static mTable newTable(String sessionToken)
+        {
+            mTable table;
+            int idGame = -1;
+            int idUser = -1;
+            var idTable = Tta.CreateTable(idGame, idUser);
+            if (idTable != null)
+            {
+                table = new mTable((int)idTable, idGame, idUser);
+            }
+            else return null;
+            return table;
+        }
         public static String czas()
         {
-
             return getAccessDate(DateTime.Now).ToString();
         }
         private static DateTime getAccessDate(DateTime d)

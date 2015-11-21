@@ -110,6 +110,7 @@ namespace Checkers.Services
         //Sprawdzenie odpowiedzi serwisu
         public LoginResponse test2()
         {
+            DBControler.newChecker();
             return new LoginResponse
             {
                 Session = DBControler.czas(),

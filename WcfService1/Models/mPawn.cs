@@ -14,7 +14,8 @@ namespace Checkers.Models
         int column;
         int row;
         int idColor;
-
+        Boolean isQueen = false;
+        Boolean inGame = true;
 
         public mPawn(int idPawn, int column, int row, int idColor)
         {
@@ -37,6 +38,22 @@ namespace Checkers.Models
             return row;
         }
 
+        public Boolean Queen()
+        {
+            return isQueen;
+        }
+        public void advanceToQueen()
+        {
+            isQueen = true;
+        }
+        public Boolean isInGame()
+        {
+            return inGame;
+        }
+        public void outOfGame()
+        {
+            inGame = false;
+        }
         public int getColor()
         {
             return idColor;
