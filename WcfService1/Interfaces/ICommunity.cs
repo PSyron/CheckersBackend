@@ -36,6 +36,10 @@ namespace Checkers.Interfaces
         [OperationContract]
         [WebGet(UriTemplate = "removeFriend/{sessionToken}/{friendName}", ResponseFormat = WebMessageFormat.Json)]
         FriendResponse removeFriend(String sessionToken, String friendName);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "createTable/{sessionToken}", ResponseFormat = WebMessageFormat.Json)]
+        TableResponse createTable(String sessionToken);
     }
 
     [DataContract]
@@ -54,5 +58,14 @@ namespace Checkers.Interfaces
         [DataMember]
         public Boolean Successful { get; set; }
     }
-
+    [DataContract]
+    public class TableResponse
+    {
+        [DataMember]
+        public String Session { get; set; }
+        [DataMember]
+        public Boolean Successful { get; set; }
+        [DataMember]
+        public String Message { get; set; }
+    }
 }

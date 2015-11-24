@@ -7212,7 +7212,7 @@ namespace Checkers.App_Data.SQL_DATASETTableAdapters {
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = "INSERT INTO tGames\r\n                         (IdChecker_, IdUser1_)\r\nVALUES      " +
-                "  (@IdChecker_,@IdUser1_);\r\nSELECT @@IDENTITY;";
+                "  (@IdChecker_,@IdUser1_);\r\nSELECT @@IDENTITY";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdChecker_", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdChecker_", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdUser1_", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdUser1_", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -8933,7 +8933,7 @@ GROUP BY IdChecker_
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[3].Connection = this.Connection;
             this._commandCollection[3].CommandText = "INSERT INTO tTables\r\n                         (IdGame_, IdUser_)\r\nVALUES        (" +
-                "@IdGame_,@IdUser_);\r\nSELECT @@IDENTITY;";
+                "@IdGame_,@IdUser_);\r\nSELECT @@IDENTITY";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdGame_", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdGame_", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdUser_", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdUser_", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -9115,7 +9115,7 @@ GROUP BY IdChecker_
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, false)]
-        public virtual int CreateTable(int IdGame_, int IdUser_) {
+        public virtual object CreateTable(int IdGame_, int IdUser_) {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[3];
             command.Parameters[0].Value = ((int)(IdGame_));
             command.Parameters[1].Value = ((int)(IdUser_));
@@ -9124,16 +9124,22 @@ GROUP BY IdChecker_
                         != global::System.Data.ConnectionState.Open)) {
                 command.Connection.Open();
             }
-            int returnValue;
+            object returnValue;
             try {
-                returnValue = command.ExecuteNonQuery();
+                returnValue = command.ExecuteScalar();
             }
             finally {
                 if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
                     command.Connection.Close();
                 }
             }
-            return returnValue;
+            if (((returnValue == null) 
+                        || (returnValue.GetType() == typeof(global::System.DBNull)))) {
+                return null;
+            }
+            else {
+                return ((object)(returnValue));
+            }
         }
     }
     

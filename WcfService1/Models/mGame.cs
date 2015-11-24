@@ -55,6 +55,10 @@ namespace Checkers.Models
             this.Scorelimit = Scorelimit;
         }
 
+        public int getId()
+        {
+            return idGame;
+        }
         public void setPlayer2(int idPlayer2)
         {
             this.idPlayer2 = idPlayer2;

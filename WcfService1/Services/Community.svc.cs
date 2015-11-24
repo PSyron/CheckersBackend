@@ -107,6 +107,27 @@ namespace Checkers.Services
                 };
             }
 
+            public TableResponse createTable(String sessionToken)
+            {
+                Login LoginService = new Login();
+                Boolean created = false;
+                String message = "Failed to create";
+                if (LoginService.session(sessionToken).Authorized == true)
+                {
+                    mTable table = DBControler.newTable(sessionToken);
+                    if (table != null)
+                    {
+                        message = "Created table with ID:" + table.getId();
+                        created = true;
+                    }
+                    }
+                return new TableResponse
+                {
+                    Session=sessionToken,
+                    Successful=created,
+                    Message=message
+                };
+            }
 
         }
 

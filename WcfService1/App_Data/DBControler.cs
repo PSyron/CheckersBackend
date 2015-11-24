@@ -182,7 +182,7 @@ namespace Checkers.App_Data
             var idGame=Gta.NewGame(checker.getId(), player);
             if (idGame != null)
             {
-                game = new mGame((int)idGame, player, checker);
+                game = new mGame(Decimal.ToInt16((decimal)idGame), player, checker);
             }
             else return null;
             return game;
@@ -199,12 +199,14 @@ namespace Checkers.App_Data
         public static mTable newTable(String sessionToken)
         {
             mTable table;
-            int idGame = -1;
             int idUser = -1;
+            idUser = (int)Uta.SessionUserId(sessionToken); 
+            mGame game = newGame(idUser);
+            int idGame = game.getId();
             var idTable = Tta.CreateTable(idGame, idUser);
-            if (idTable != null)
+            if (idTable!=null)
             {
-                table = new mTable((int)idTable, idGame, idUser);
+                table = new mTable(Decimal.ToInt16((decimal)idTable), idGame, idUser);
             }
             else return null;
             return table;
