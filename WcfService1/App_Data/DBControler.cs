@@ -18,6 +18,7 @@ namespace Checkers.App_Data
         static SQL_DATASETTableAdapters.tCheckersTableAdapter Cta = new SQL_DATASETTableAdapters.tCheckersTableAdapter();
         static SQL_DATASETTableAdapters.tGamesTableAdapter Gta= new SQL_DATASETTableAdapters.tGamesTableAdapter();
         static SQL_DATASETTableAdapters.tTablesTableAdapter Tta = new SQL_DATASETTableAdapters.tTablesTableAdapter();
+        static SQL_DATASETTableAdapters.tInvitesTableAdapter Ita = new SQL_DATASETTableAdapters.tInvitesTableAdapter();
         //Sprawdzenie prawidlowosci sesji
         public static mUser logIn(String session)
         {
@@ -210,6 +211,38 @@ namespace Checkers.App_Data
             }
             else return null;
             return table;
+        }
+
+        public static mUser newInvite(String sessionToken, String name, int idGame)
+        {
+            
+            int idUser = -1;
+            int idUserInvited = -1;
+            idUser = (int)Uta.SessionUserId(sessionToken);
+            if (Gta.CheckPermission(idUser, idGame) == 0) return new mUser(sessionToken,0);
+            
+            idUserInvited = (int)Uta.NameUserId(name);
+            if (idUserInvited < 1) return new mUser(sessionToken, -1);
+            if (Ita.UpdateInvite(idGame, idUserInvited) > 0) return new mUser(sessionToken, -4);
+            //var idInvitation = Ita.NewInvite(idGame, idUserInvited);
+            //if ((Decimal)idInvitation < 1) return new mUser(sessionToken, -3);
+
+            return new mUser(sessionToken,1);
+        }
+
+        public static mUser removeInvite(String sessionToken, String name, int idGame)
+        {
+
+            int idUser = -1;
+            int idUserInvited = -1;
+            idUser = (int)Uta.SessionUserId(sessionToken);
+            if (Gta.CheckPermission(idUser, idGame) == 0) return new mUser(sessionToken, 0);
+
+            idUserInvited = (int)Uta.NameUserId(name);
+            if (idUserInvited < 1) return new mUser(sessionToken, -1);
+            var idInvitation = Ita.DeleteInvite(idGame, idUserInvited);
+
+            return new mUser(sessionToken, 1);
         }
         public static String czas()
         {
