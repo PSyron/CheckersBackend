@@ -9,9 +9,10 @@ namespace Checkers.Models
     {
 
         DateTime timestamp;
-        int idGame;
-        String playerName;
-        public mInvite();
+        public String dateString;
+        public int idGame;
+        public String playerName;
+        public mInvite(){}
 
         public mInvite(DateTime timestamp, int idGame)
         {
@@ -22,6 +23,12 @@ namespace Checkers.Models
         {
             this.idGame = idGame;
             this.timestamp = timestamp;
+            this.playerName = playerName;
+        }
+        public mInvite(String dateString, int idGame, String playerName)
+        {
+            this.dateString = dateString;
+            this.idGame = idGame;
             this.playerName = playerName;
         }
         public DateTime getTime(){return timestamp;}

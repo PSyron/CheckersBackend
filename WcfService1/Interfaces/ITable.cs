@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Checkers.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -16,8 +17,8 @@ namespace Checkers.Interfaces
         [OperationContract]
         [WebGet(UriTemplate = "createTable/{sessionToken}", ResponseFormat = WebMessageFormat.Json)]
         TableResponse createTable(String sessionToken);
-        
-        //http://156.17.130.217/Pz/Services/Table.svc/invitePlayer/8a502001-7291-4b8b-9ff1-d5617be4943e/Nietoperek/1
+
+        //http://156.17.130.217/Pz/Services/Table.svc/invitePlayer/67c90b8a-8b68-4e1c-bd8e-c5a74d455b7c/Nietoperek/4
         [OperationContract]
         [WebGet(UriTemplate = "invitePlayer/{sessionToken}/{friendName}/{idGame}", ResponseFormat = WebMessageFormat.Json)]
         TableResponse invitePlayer(String sessionToken, String friendName, String idGame);
@@ -26,6 +27,13 @@ namespace Checkers.Interfaces
         [WebGet(UriTemplate = "revokeInvitation/{sessionToken}/{friendName}/{idGame}", ResponseFormat = WebMessageFormat.Json)]
         TableResponse revokeInvitation(String sessionToken, String friendName, String idGame);
 
+        [OperationContract]
+        [WebGet(UriTemplate = "refuseInvitation/{sessionToken}/{idGame}", ResponseFormat = WebMessageFormat.Json)]
+        TableResponse refuseInvitation(String sessionToken, String idGame);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "getInvitations/{sessionToken}", ResponseFormat = WebMessageFormat.Json)]
+        InvitationsResponse getInvitations(String sessionToken);
 
     }
 
@@ -41,10 +49,12 @@ namespace Checkers.Interfaces
     }
 
     [DataContract]
-    public class PlayersResponse
+    public class InvitationsResponse
     {
         [DataMember]
         public String Session { get; set; }
+        [DataMember]
+        public Boolean Successful { get; set; }
         [DataMember]
         public List<mInvite> Invites { get; set; }
     }

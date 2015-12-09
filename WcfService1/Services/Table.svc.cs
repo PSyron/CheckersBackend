@@ -86,6 +86,66 @@ namespace Checkers.Services
             };
         }
 
+        public TableResponse refuseInvitation(String sessionToken, String SidGame)
+        {
+            int idGame = Int16.Parse(SidGame);
+            Login LoginService = new Login();
+            Boolean refused = false;
+            String message = "Invitation not found";
+            if (LoginService.session(sessionToken).Authorized == true)
+            {
+                mUser userInv = DBControler.refuseInvite(sessionToken, idGame);
+                if (userInv.getId() > 0)
+                {
+                    refused = true;
+                    message = "Refused invitation to game with id:" + idGame;
+                }
+            }
+            else sessionToken = "";
+
+            return new TableResponse
+            {
+                Session = sessionToken,
+                Successful = refused,
+                Message = message
+            };
+        }
+        //Poprawic responsa
+        public InvitationsResponse getInvitations(String sessionToken)
+        {
+            Login LoginService = new Login();
+            Boolean responded = false;
+            List<mInvite> invites = new List<mInvite>();
+            if (LoginService.session(sessionToken).Authorized == true)
+            {
+                invites = DBControler.getInvitations(sessionToken);
+                responded = true;
+            }
+            else sessionToken = "";
+
+            return new InvitationsResponse
+            {
+                Session = sessionToken,
+                Successful = responded,
+                Invites = invitesListToJson(invites)
+            };
+        }
+
+        private List<mInvite> invitesListToJson(List<mInvite> invites)
+        {
+            List<mInvite> invitesJson = new List<mInvite>();
+
+            foreach (mInvite i in invites)
+                invitesJson.Add(new mInvite
+                {
+                    dateString= i.getTime().ToString(),
+                    playerName = i.playerName,
+                    idGame=i.getIdGame()
+
+                });
+            return invitesJson;
+        }
+
         //TODO Zaakceptowanie invite
 
 

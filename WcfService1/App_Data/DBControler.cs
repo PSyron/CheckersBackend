@@ -224,7 +224,7 @@ namespace Checkers.App_Data
             idUserInvited = (int)Uta.NameUserId(name);
             if (idUserInvited < 1) return new mUser(sessionToken, -1);
             if (Ita.UpdateInvite(idGame, idUserInvited) > 0) return new mUser(sessionToken, -4);
-            //var idInvitation = Ita.NewInvite(idGame, idUserInvited);
+            else Ita.NewInvite(idGame, idUserInvited);
             //if ((Decimal)idInvitation < 1) return new mUser(sessionToken, -3);
 
             return new mUser(sessionToken,1);
@@ -241,8 +241,38 @@ namespace Checkers.App_Data
             idUserInvited = (int)Uta.NameUserId(name);
             if (idUserInvited < 1) return new mUser(sessionToken, -1);
             var idInvitation = Ita.DeleteInvite(idGame, idUserInvited);
+            if ((Decimal)idInvitation < 1) return new mUser(sessionToken, -3);
 
             return new mUser(sessionToken, 1);
+        }
+        public static mUser refuseInvite(String sessionToken, int idGame)
+        {
+            int idUserInvited = -1;
+            idUserInvited = (int)Uta.SessionUserId(sessionToken);    
+            if (idUserInvited < 1) return new mUser(sessionToken, -1);
+            var idInvitation = Ita.DeleteInvite(idGame, idUserInvited);
+            if ((Decimal)idInvitation < 1) return new mUser(sessionToken, -3);
+            return new mUser(sessionToken, 1);
+        }
+
+        public static List<mInvite> getInvitations(String sessionToken)
+        {
+            int idUser = (int)Uta.SessionUserId(sessionToken);
+            DataTable list = Ita.GetUserInvites(idUser);
+            return dataToInvitationList(list);
+        }
+
+        private static List<mInvite> dataToInvitationList(DataTable list)
+        {
+            List<mInvite> invites = new List<mInvite>();
+            for (int i = 0; i < list.Rows.Count; i++)
+            {
+                var row = list.Rows[i];
+                //(Convert.ToDateTime(row["SendTime"].ToString())
+                invites.Add(new mInvite((DateTime)row["SendTime"], Int16.Parse(row["IdGame_"].ToString()), row["Name"].ToString()));
+
+            }
+            return invites;
         }
         public static String czas()
         {

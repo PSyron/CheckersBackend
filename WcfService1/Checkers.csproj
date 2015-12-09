@@ -125,6 +125,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SQL_DATASET.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Models\mInvite.cs" />
     <Compile Include="Services\Community.svc.cs">
       <DependentUpon>Community.svc</DependentUpon>
     </Compile>
