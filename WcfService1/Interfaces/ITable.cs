@@ -31,6 +31,11 @@ namespace Checkers.Interfaces
         [WebGet(UriTemplate = "refuseInvitation/{sessionToken}/{idGame}", ResponseFormat = WebMessageFormat.Json)]
         TableResponse refuseInvitation(String sessionToken, String idGame);
 
+        //http://localhost:13622/Services/Table.svc/acceptInvite/67c90b8a-8b68-4e1c-bd8e-c5a74d455b7c/7
+        [OperationContract]
+        [WebGet(UriTemplate = "acceptInvite/{sessionToken}/{idGame}", ResponseFormat = WebMessageFormat.Json)]
+        TableResponse acceptInvitation(String sessionToken, String idGame);
+
         //http://156.17.130.217/Pz/Services/Table.svc/getInvitations/3781fb33-8883-40c1-82db-929d18f7d84b
         [OperationContract]
         [WebGet(UriTemplate = "getInvitations/{sessionToken}", ResponseFormat = WebMessageFormat.Json)]

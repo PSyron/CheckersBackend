@@ -25,7 +25,7 @@ namespace Checkers.Services
                 mTable table = DBControler.newTable(sessionToken);
                 if (table != null)
                 {
-                    message = "Created table with ID:" + table.getId();
+                    message = "" + table.getId();
                     created = true;
                 }
             }
@@ -98,7 +98,7 @@ namespace Checkers.Services
                 if (userInv.getId() > 0)
                 {
                     refused = true;
-                    message = "Refused invitation to game with id:" + idGame;
+                    message = "" + idGame;
                 }
             }
             else sessionToken = "";
@@ -107,6 +107,41 @@ namespace Checkers.Services
             {
                 Session = sessionToken,
                 Successful = refused,
+                Message = message
+            };
+        }
+
+        public TableResponse acceptInvitation(String sessionToken, String SidGame)
+        {
+            int idGame = Int16.Parse(SidGame);
+            Login LoginService = new Login();
+            Boolean accepted = false;
+            String message = "Game not found";
+            if (LoginService.session(sessionToken).Authorized == true)
+            {
+                mUser userInv = DBControler.acceptInvite(sessionToken, idGame);
+                if (userInv.getId() > 0)
+                {
+                    accepted = true;
+                    message = "" + idGame;
+                }
+                if (userInv.getId() == -3)
+                {
+                    accepted = false;
+                    message = ""+idGame;
+                }
+                if (userInv.getId()==-5)
+                {
+                    accepted = false;
+                    message = "" + idGame;
+                }
+            }
+            else sessionToken = "";
+
+            return new TableResponse
+            {
+                Session = sessionToken,
+                Successful = accepted,
                 Message = message
             };
         }

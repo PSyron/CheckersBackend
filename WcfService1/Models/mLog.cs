@@ -11,13 +11,13 @@ namespace Checkers.Models
     public class mLog
     {
         int idTable;
-        int idGame;
-        int idPawnMoved; //pionek ruszony
-        int idPawnOut; //pionek zbity(o ile jest)
-        int preColumn;
-        int postColumn;
-        int preRow;
-        int postRow;
+        public int idGame;
+        public int idPawnMoved; //pionek ruszony
+        public int idPawnOut; //pionek zbity(o ile jest)
+        public int preColumn;
+        public int postColumn;
+        public int preRow;
+        public int postRow;
         
         public mLog(int idTable, int idGame, int preColumn, int postColumn, int preRow, int postRow, int idPawnOut, int idPawnMoved)
         {
@@ -27,6 +27,10 @@ namespace Checkers.Models
             this.postColumn = postColumn;
             this.preRow = preRow;
             this.postRow = postRow;
+        }
+
+        public mLog()
+        {
         }
 
         public void saveLog()

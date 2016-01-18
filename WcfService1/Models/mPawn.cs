@@ -16,13 +16,21 @@ namespace Checkers.Models
         int idColor;
         Boolean isQueen = false;
         Boolean inGame = true;
-
+        int idChecker;
         public mPawn(int idPawn, int column, int row, int idColor)
         {
             this.idPawn = idPawn;
             this.column = column;
             this.row = row;
             this.idColor = idColor;
+        }
+        public mPawn(int idPawn, int column, int row, int idColor,int idChecker)
+        {
+            this.idPawn = idPawn;
+            this.column = column;
+            this.row = row;
+            this.idColor = idColor;
+            this.idChecker = idChecker;
         }
         public int getId()
         {
@@ -32,6 +40,10 @@ namespace Checkers.Models
         public int getColumn()
         {
             return column;
+        }
+        public int getidChecker()
+        {
+            return idChecker;
         }
         public int getRow()
         {

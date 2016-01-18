@@ -10,13 +10,13 @@ namespace Checkers.Models
     /// </summary>
     public class mMove
     {
-        int idGame;
-        int idPlayer;
-        mPawn PawnPre; //stan pionka przed
-        mPawn PawnPost; //stan pionka po
-        mPawn PawnDown; //zbity pionek w ruchu
-        Boolean hasNextMove; //czy po tym ruchu, jest nastepny?
-        Boolean moveAllowed; //tryb rozgrywki, czy mozna wykonac taki ruch, czy nie
+        public int idGame;
+        public int idPlayer;
+        public mPawn PawnPre; //stan pionka przed
+        public mPawn PawnPost; //stan pionka po
+        public mPawn PawnDown; //zbity pionek w ruchu
+        public Boolean hasNextMove; //czy po tym ruchu, jest nastepny?
+        public Boolean moveAllowed; //tryb rozgrywki, czy mozna wykonac taki ruch, czy nie
         
         public mMove(int idGame, int idPlayer, mPawn Pawn, int postColumn, int postRow)
         {

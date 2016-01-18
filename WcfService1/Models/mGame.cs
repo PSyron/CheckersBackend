@@ -11,12 +11,14 @@ namespace Checkers.Models
     /// </summary>
     public class mGame
     {
-        int idGame;
+        public int idGame;
         mChecker checker;
         int idPlayer1;
         int idPlayer2;
-        int player1Points=0;
-        int player2Points=0;
+        public String Player1name;
+        public String Player2name;
+        int player1Points = 0;
+        int player2Points = 0;
         int Scorelimit = 2;
 
         public mGame(int idGame, int idPlayer1, mChecker checker)
@@ -30,6 +32,15 @@ namespace Checkers.Models
             this.idGame = idGame;
             this.idPlayer1 = idPlayer1;
             this.idPlayer2 = idPlayer2;
+        }
+        public mGame(int idGame, String Player1name, String Player2name)
+        {
+            this.idGame = idGame;
+            this.Player1name = Player1name;
+            this.Player2name = Player2name;
+        }
+        public mGame()
+        {
         }
 
         public String playerWin(int idPlayer)
@@ -58,6 +69,14 @@ namespace Checkers.Models
         public int getId()
         {
             return idGame;
+        }
+        public String getPlayer1name()
+        {
+            return Player1name;
+        }
+        public String getPlayer2name()
+        {
+            return Player2name;
         }
         public void setPlayer2(int idPlayer2)
         {

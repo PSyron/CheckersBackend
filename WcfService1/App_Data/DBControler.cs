@@ -19,6 +19,7 @@ namespace Checkers.App_Data
         static SQL_DATASETTableAdapters.tGamesTableAdapter Gta= new SQL_DATASETTableAdapters.tGamesTableAdapter();
         static SQL_DATASETTableAdapters.tTablesTableAdapter Tta = new SQL_DATASETTableAdapters.tTablesTableAdapter();
         static SQL_DATASETTableAdapters.tInvitesTableAdapter Ita = new SQL_DATASETTableAdapters.tInvitesTableAdapter();
+        static SQL_DATASETTableAdapters.tLogsTableAdapter Lta = new SQL_DATASETTableAdapters.tLogsTableAdapter();
         //Sprawdzenie prawidlowosci sesji
         public static mUser logIn(String session)
         {
@@ -230,6 +231,54 @@ namespace Checkers.App_Data
             return new mUser(sessionToken,1);
         }
 
+        public static mMove movePawn(String sessionToken, int idGame,int preX, int preY, int postX, int postY) //still working on it
+        {
+            //dodac logowanie ruchu
+            int idUser = -1;
+            int idPawnOut=-2;
+            idUser = (int)Uta.SessionUserId(sessionToken);
+            DataTable pawns= Cta.FindPawnIdByPossition(preY, preX, idGame);
+            mPawn Pawn = null;
+            if (pawns.Rows.Count > 0)
+            {
+                var row = pawns.Rows[pawns.Rows.Count - 1];
+                Pawn = new mPawn(Int16.Parse(row["IdPawn"].ToString()), Int16.Parse(row["PawnColumn"].ToString()), Int16.Parse(row["PawnRow"].ToString()), Int16.Parse(row["IdColor_"].ToString()), Int16.Parse(row["IdChecker"].ToString()));
+            }
+                if (postX == 8 && Pawn.getColor() == 1 || postX == 1 && Pawn.getColor() == 2) Pawn.advanceToQueen();
+           
+            if(Math.Abs(postX-preX)==2){
+                DataTable pawns2= Cta.FindPawnIdByPossition((preX+postX), (preY+postY), idGame);
+                if (pawns.Rows.Count > 0)
+                {
+                    var row2 = pawns2.Rows[pawns.Rows.Count - 1];
+                    idPawnOut = Int16.Parse(row2["IdPawn"].ToString());
+                    Cta.PawnOut(Pawn.getidChecker(), idPawnOut);
+                }
+            }
+            if (Pawn == null) return null;
+            Cta.PawnMove(postX,postY,Pawn.getidChecker(),Pawn.getId()); //move Pawn
+            Lta.Insert(Pawn.getidChecker(), Pawn.getId(), idPawnOut, preY, postY, preX, postX); //log move
+            return new mMove(idGame, idUser, new mPawn(Pawn.getId(), Pawn.getRow(), Pawn.getColumn(), Pawn.getColor()), postX, postY);
+        }
+
+        public static List<mLog> getLastMoves(String sessionToken, int idGame, int idLastMove) //still working on it
+        {
+            int idUser = -1;
+            idUser = (int)Uta.SessionUserId(sessionToken);
+            DataTable list = Lta.GetLastMoves(idLastMove, idGame);
+            return dataToMovesList(list);
+        }
+        private static List<mLog> dataToMovesList(DataTable list)
+        {
+            List<mLog> moves = new List<mLog>();
+            for (int i = 0; i < list.Rows.Count; i++)
+            {
+                var row = list.Rows[i];                
+                moves.Add(new mLog(0, Int16.Parse(row["IdGame"].ToString()), Int16.Parse(row["ColumnPre"].ToString()), Int16.Parse(row["ColumnPost"].ToString()), 
+                    Int16.Parse(row["RowPre"].ToString()), Int16.Parse(row["RowPost"].ToString()), Int16.Parse(row["IdPawnOut_"].ToString()), Int16.Parse(row["IdPawnMoved_"].ToString())));
+            }
+            return moves;
+        }
         public static mUser removeInvite(String sessionToken, String name, int idGame)
         {
 
@@ -254,6 +303,16 @@ namespace Checkers.App_Data
             if ((Decimal)idInvitation < 1) return new mUser(sessionToken, -3);
             return new mUser(sessionToken, 1);
         }
+        public static mUser acceptInvite(String sessionToken, int idGame)
+        {
+            int idUserInvited = -1;
+            idUserInvited = (int)Uta.SessionUserId(sessionToken);
+            if (idUserInvited < 1) return new mUser(sessionToken, -1);
+            if (Ita.CheckInvite(idGame,idUserInvited) < 1) return new mUser(sessionToken, -3);
+            else if((int)Gta.HasPlayer2(idGame) > 0) return new mUser(sessionToken, -5); //room full
+            else Gta.SetPlayer2(idUserInvited, idGame);
+            return new mUser(sessionToken, 1);
+        }
 
         public static List<mInvite> getInvitations(String sessionToken)
         {
@@ -274,6 +333,33 @@ namespace Checkers.App_Data
             }
             return invites;
         }
+
+        public static List<mGame> getGames(String sessionToken)
+        {
+            int idUser = (int)Uta.SessionUserId(sessionToken);
+            DataTable list = Gta.GetGames(idUser);
+            return dataToGamesList(list);
+        }
+
+        private static List<mGame> dataToGamesList(DataTable list)
+        {
+            List<mGame> games = new List<mGame>();
+            String Player1name = "";
+            String Player2name = "";
+            int Player1id=-1;
+            int Player2id=-1;
+            for (int i = 0; i < list.Rows.Count; i++)
+            {
+                var row = list.Rows[i];
+                Player1id=Int16.Parse(row["IdUser1_"].ToString());
+                var value = row["IdUser2_"];
+                if (value!=DBNull.Value) Player2id = Int16.Parse(row["IdUser2_"].ToString());
+                if(Player1id>0)Player1name = Uta.Username(Player1id);
+                if(Player2id>0)Player2name = Uta.Username(Player2id);
+                    games.Add(new mGame(Int16.Parse(row["IdGame"].ToString()), Player1name, Player2name));
+            }
+            return games;
+        }
         public static String czas()
         {
             return getAccessDate(DateTime.Now).ToString();
@@ -282,9 +368,7 @@ namespace Checkers.App_Data
         {
             return new DateTime(d.Year, d.Month, d.Day, d.Hour, d.Minute, d.Second);
         }
-
-
-
+               
      
         }
 }
