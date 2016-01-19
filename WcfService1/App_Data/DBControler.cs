@@ -237,16 +237,16 @@ namespace Checkers.App_Data
             int idUser = -1;
             int idPawnOut=-2;
             idUser = (int)Uta.SessionUserId(sessionToken);
-            DataTable pawns= Cta.FindPawnIdByPossition(preY, preX, idGame);
+            DataTable pawns= Cta.FindPawnIdByPossition(preX, preY, idGame);
             mPawn Pawn = null;
             if (pawns.Rows.Count > 0)
             {
                 var row = pawns.Rows[pawns.Rows.Count - 1];
                 Pawn = new mPawn(Int16.Parse(row["IdPawn"].ToString()), Int16.Parse(row["PawnColumn"].ToString()), Int16.Parse(row["PawnRow"].ToString()), Int16.Parse(row["IdColor_"].ToString()), Int16.Parse(row["IdChecker"].ToString()));
             }
-                if (postX == 8 && Pawn.getColor() == 1 || postX == 1 && Pawn.getColor() == 2) Pawn.advanceToQueen();
+                if (postY == 8 && Pawn.getColor() == 1 || postY == 1 && Pawn.getColor() == 2) Pawn.advanceToQueen();
            
-            if(Math.Abs(postX-preX)==2){
+            if(Math.Abs(postY-preY)==2){
                 DataTable pawns2= Cta.FindPawnIdByPossition((preX+postX), (preY+postY), idGame);
                 if (pawns.Rows.Count > 0)
                 {
@@ -257,8 +257,9 @@ namespace Checkers.App_Data
             }
             if (Pawn == null) return null;
             Cta.PawnMove(postX,postY,Pawn.getidChecker(),Pawn.getId()); //move Pawn
-            Lta.Insert(Pawn.getidChecker(), Pawn.getId(), idPawnOut, preY, postY, preX, postX); //log move
-            return new mMove(idGame, idUser, new mPawn(Pawn.getId(), Pawn.getRow(), Pawn.getColumn(), Pawn.getColor()), postX, postY);
+            Lta.Insert(Pawn.getidChecker(), Pawn.getId(), idPawnOut, preX, postX, preY, postY); //log move
+            int idMove = (int)Lta.GetLastIdMove(Pawn.getidChecker());
+            return new mMove(idMove,idGame, idUser, new mPawn(Pawn.getId(), Pawn.getRow(), Pawn.getColumn(), Pawn.getColor()), postX, postY);
         }
 
         public static List<mLog> getLastMoves(String sessionToken, int idGame, int idLastMove) //still working on it
@@ -268,13 +269,97 @@ namespace Checkers.App_Data
             DataTable list = Lta.GetLastMoves(idLastMove, idGame);
             return dataToMovesList(list);
         }
+
+        public static int finishMove(String sessionToken, int idGame)
+        {
+
+            int idUser = -1;
+            idUser = (int)Uta.SessionUserId(sessionToken);
+            int checkerId = -1;
+            checkerId = (int)Gta.GetCheckerId(idGame);
+            /*
+             * DataTable list = Gta.GetPlayers(idGame);
+            var row = list.Rows[0];
+            if (Int16.Parse(row["IdUser1"].ToString()) == idUser) Lta.EndMove(checkerId, -1);
+            else if (Int16.Parse(row["IdUser2"].ToString()) == idUser) Lta.EndMove(checkerId, -2);
+            */
+            int idPlayer1=-10;
+            int idPlayer2=-5;
+            var player1=Gta.GetPlayer1Id(idGame);
+            if (player1 != null)
+            {
+                idPlayer1 = (int)player1;
+                if (idPlayer1 == idUser) Lta.EndMove(checkerId, -1);
+            }
+            var player2 = Gta.GetPlayer2Id(idGame);
+            if (player2 != null)
+            {
+                idPlayer2 = (int)player2;
+                if (idPlayer2 == idUser) Lta.EndMove(checkerId, -2);                 
+            }
+                return (int)Lta.GetLastIdMove(checkerId);
+        }
+
+        public static int finishGame(String sessionToken, int idGame)
+        {
+
+            int idUser = -1;
+            idUser = (int)Uta.SessionUserId(sessionToken);
+            int checkerId = -1;
+            checkerId = (int)Gta.GetCheckerId(idGame);
+            int idPlayer1 = -10;
+            int idPlayer2 = -5;
+            var player1 = Gta.GetPlayer1Id(idGame);
+            if (player1 != null)
+            {
+                idPlayer1 = (int)player1;
+                if (idPlayer1 == idUser)
+                {
+                    Gta.WinPlayer1(idGame);
+                    Lta.EndMove(checkerId, -10);
+                }
+            }
+            var player2 = Gta.GetPlayer2Id(idGame);
+            if (player2 != null)
+            {
+                idPlayer2 = (int)player2;
+                if (idPlayer2 == idUser)
+                {
+                    Gta.WinPlayer2(idGame);
+                    Lta.EndMove(checkerId, -20);
+                }
+            }
+            return (int)Lta.GetLastIdMove(checkerId);
+        }
+        private static mGame dataGame(DataTable list)
+        {
+            String Player1name = "";
+            String Player2name = "";
+            int Player1id = -1;
+            int Player2id = -1;
+            mGame game=null;
+            for (int i = 0; i < list.Rows.Count; i++)
+            {
+                var row = list.Rows[i];
+                Player1id = Int16.Parse(row["IdUser1_"].ToString());
+                var value = row["IdUser2_"];
+                if (value != DBNull.Value) Player2id = Int16.Parse(row["IdUser2_"].ToString());
+                if (Player1id > 0) Player1name = Uta.Username(Player1id);
+                if (Player2id > 0) Player2name = Uta.Username(Player2id);
+                game = new mGame(Int16.Parse(row["IdGame"].ToString()), Player1id, Player2id);
+                game.Player1name = Player1name;
+                game.Player2name = Player2name;
+            }
+            return game;
+        }
+
         private static List<mLog> dataToMovesList(DataTable list)
         {
             List<mLog> moves = new List<mLog>();
             for (int i = 0; i < list.Rows.Count; i++)
             {
-                var row = list.Rows[i];                
-                moves.Add(new mLog(0, Int16.Parse(row["IdGame"].ToString()), Int16.Parse(row["ColumnPre"].ToString()), Int16.Parse(row["ColumnPost"].ToString()), 
+                var row = list.Rows[i];
+                moves.Add(new mLog(0, Int16.Parse(row["IdGame"].ToString()), Int16.Parse(row["IdMove"].ToString()), Int16.Parse(row["ColumnPre"].ToString()), Int16.Parse(row["ColumnPost"].ToString()), 
                     Int16.Parse(row["RowPre"].ToString()), Int16.Parse(row["RowPost"].ToString()), Int16.Parse(row["IdPawnOut_"].ToString()), Int16.Parse(row["IdPawnMoved_"].ToString())));
             }
             return moves;
@@ -309,8 +394,12 @@ namespace Checkers.App_Data
             idUserInvited = (int)Uta.SessionUserId(sessionToken);
             if (idUserInvited < 1) return new mUser(sessionToken, -1);
             if (Ita.CheckInvite(idGame,idUserInvited) < 1) return new mUser(sessionToken, -3);
-            else if((int)Gta.HasPlayer2(idGame) > 0) return new mUser(sessionToken, -5); //room full
-            else Gta.SetPlayer2(idUserInvited, idGame);
+            else if ((int)Gta.HasPlayer2(idGame) > 0) return new mUser(sessionToken, -5); //room full
+            else
+            {
+                Gta.SetPlayer2(idUserInvited, idGame);
+                Ita.DeleteInvitesToGame(idGame);
+            }
             return new mUser(sessionToken, 1);
         }
 
@@ -338,6 +427,13 @@ namespace Checkers.App_Data
         {
             int idUser = (int)Uta.SessionUserId(sessionToken);
             DataTable list = Gta.GetGames(idUser);
+            return dataToGamesList(list);
+        }
+
+        public static List<mGame> getFullGames(String sessionToken)
+        {
+            int idUser = (int)Uta.SessionUserId(sessionToken);
+            DataTable list = Gta.GetFullGames(idUser);
             return dataToGamesList(list);
         }
 

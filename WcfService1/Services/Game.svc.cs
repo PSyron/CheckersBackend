@@ -81,13 +81,14 @@ namespace Checkers.Services
             int postX = Int16.Parse(spostX);
             int postY = Int16.Parse(spostY);
             mMove move = null;
-            String message = "Pawn doesn't exist";
+            String message = "Login fail";
             if (LoginService.session(sessionToken).Authorized == true)
             {
+                message = "Pawn doesn't exist";
                 move = DBControler.movePawn(sessionToken, idGame, preX, preY, postX, postY);
                 if (move != null)
                 {
-                    message = "Moved pawn";
+                    message = move.idMove+"";
                     moved = true;
                 }
             }
@@ -126,8 +127,9 @@ namespace Checkers.Services
                 move.Add(new mLog
                 {
                     idGame=m.idGame,
-                    idPawnMoved=m.idPawnMoved,
-                    idPawnOut=m.idPawnOut,
+                   // idPawnMoved=m.idPawnMoved,
+                   // idPawnOut=m.idPawnOut,
+                    idMove=m.idMove,
                     preColumn=m.preColumn,
                     postColumn=m.postColumn,
                     preRow=m.preRow,
@@ -137,26 +139,60 @@ namespace Checkers.Services
             return move;
         }
 
+        public GamesResponse getFullGames(String sessionToken)
+        {
+            Login LoginService = new Login();
+            Boolean responded = false;
+            List<mGame> games = new List<mGame>();
+            if (LoginService.session(sessionToken).Authorized == true)
+            {
+                games = DBControler.getFullGames(sessionToken);
+                responded = true;
+            }
+            else sessionToken = "";
+
+            return new GamesResponse
+            {
+                Session = sessionToken,
+                Successful = responded,
+                Games = gamesListToJson(games)
+            };
+        }
+
         public GameResponse finishMove(String sessionToken, String sidGame)
         {
             Login LoginService = new Login();
-            Boolean moved = false;
-            int idGame = Int16.Parse(sidGame);            
-            mMove move = null;
-            String message = "Can't finish yet";
+            Boolean finished = false;
+            int idGame = Int16.Parse(sidGame);
+            String message = "Failed to finish move";
             if (LoginService.session(sessionToken).Authorized == true)
             {
-                //move = DBControler.finishMove(sessionToken, idGame);
-                if (move != null)
-                {
-                    message = "Finished turn";
-                    moved = true;
-                }
+                message= ""+DBControler.finishMove(sessionToken, idGame);
+                finished = true;
             }
             return new GameResponse
             {
                 Session = sessionToken,
-                Successful = moved,
+                Successful = finished,
+                Message = message
+            };
+        }
+
+        public GameResponse finishGame(String sessionToken, String sidGame)
+        {
+            Login LoginService = new Login();
+            Boolean finished = false;
+            int idGame = Int16.Parse(sidGame);
+            String message = "Failed to login";
+            if (LoginService.session(sessionToken).Authorized == true)
+            {
+                message = "" + DBControler.finishGame(sessionToken, idGame);
+                finished = true;
+            }
+            return new GameResponse
+            {
+                Session = sessionToken,
+                Successful = finished,
                 Message = message
             };
         }

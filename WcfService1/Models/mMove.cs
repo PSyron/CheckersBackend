@@ -10,6 +10,7 @@ namespace Checkers.Models
     /// </summary>
     public class mMove
     {
+        public int idMove;
         public int idGame;
         public int idPlayer;
         public mPawn PawnPre; //stan pionka przed
@@ -18,8 +19,9 @@ namespace Checkers.Models
         public Boolean hasNextMove; //czy po tym ruchu, jest nastepny?
         public Boolean moveAllowed; //tryb rozgrywki, czy mozna wykonac taki ruch, czy nie
         
-        public mMove(int idGame, int idPlayer, mPawn Pawn, int postColumn, int postRow)
+        public mMove(int idMove,int idGame, int idPlayer, mPawn Pawn, int postColumn, int postRow)
         {
+            this.idMove = idMove;
             this.idGame = idGame;
             this.idPlayer = idPlayer;
             PawnPre=Pawn;

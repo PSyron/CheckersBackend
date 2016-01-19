@@ -23,6 +23,10 @@ namespace Checkers.Interfaces
         [WebGet(UriTemplate = "getGames/{sessionToken}", ResponseFormat = WebMessageFormat.Json)]
         GamesResponse getGames(String sessionToken);
 
+        //http://156.17.130.217/Pz/Services/Game.svc/getFullGames/67c90b8a-8b68-4e1c-bd8e-c5a74d455b7c
+        [OperationContract]
+        [WebGet(UriTemplate = "getFullGames/{sessionToken}", ResponseFormat = WebMessageFormat.Json)]
+        GamesResponse getFullGames(String sessionToken);
 
         //http://156.17.130.217/Pz/Services/Game.svc/getLastMoves/67c90b8a-8b68-4e1c-bd8e-c5a74d455b7c/2/1
         [OperationContract]
@@ -31,13 +35,19 @@ namespace Checkers.Interfaces
 
         //http://156.17.130.217/Pz/Services/Game.svc/movePawn/67c90b8a-8b68-4e1c-bd8e-c5a74d455b7c/2/1/3/2/4
         [OperationContract]
-        [WebGet(UriTemplate = "movePawn/{sessionToken}/{idGame}/{preX}/{preY}/{postX}/{postY}", ResponseFormat = WebMessageFormat.Json)]
+        [WebGet(UriTemplate = "movePawn/{sessionToken}/{idGame}/{preY}/{preX}/{postY}/{postX}", ResponseFormat = WebMessageFormat.Json)]
         GameResponse movePawn(String sessionToken, String idGame, String preX, String preY, String postX, String postY);
-
+        
         //http://156.17.130.217/Pz/Services/Game.svc/finishMove/67c90b8a-8b68-4e1c-bd8e-c5a74d455b7c/2
         [OperationContract]
         [WebGet(UriTemplate = "finishMove/{sessionToken}/{idGame}", ResponseFormat = WebMessageFormat.Json)]
         GameResponse finishMove(String sessionToken, String idGame);
+
+        //http://156.17.130.217/Pz/Services/Game.svc/finishGame/67c90b8a-8b68-4e1c-bd8e-c5a74d455b7c/2
+        [OperationContract]
+        [WebGet(UriTemplate = "finishGame/{sessionToken}/{idGame}", ResponseFormat = WebMessageFormat.Json)]
+        GameResponse finishGame(String sessionToken, String idGame);
+        
     }
 
     [DataContract]

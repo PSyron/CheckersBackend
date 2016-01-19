@@ -25,7 +25,7 @@ namespace Checkers.Services
                 mTable table = DBControler.newTable(sessionToken);
                 if (table != null)
                 {
-                    message = "" + table.getId();
+                    message = "" + table.getGameId();
                     created = true;
                 }
             }
