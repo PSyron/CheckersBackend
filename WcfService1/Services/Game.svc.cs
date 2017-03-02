@@ -123,7 +123,7 @@ namespace Checkers.Services
         {
             List<mLog> move = new List<mLog>();
 
-            foreach (mLog m in moves)
+            if(moves!=null) foreach (mLog m in moves)
                 move.Add(new mLog
                 {
                     idGame=m.idGame,

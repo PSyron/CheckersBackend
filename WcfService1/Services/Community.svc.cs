@@ -21,7 +21,7 @@ namespace Checkers.Services
             List<mUser> users=new List<mUser>();
             if(LoginService.session(sessionToken).Authorized==true)
             {
-                users=DBControler.getActiveUsers();
+                users = DBControler.getActiveUsers(sessionToken);
             }
             else sessionToken="";
 

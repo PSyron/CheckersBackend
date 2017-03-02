@@ -5519,7 +5519,7 @@ namespace Checkers.App_Data.SQL_DATASETTableAdapters {
             this._commandCollection[1].CommandText = @"SELECT        tCheckers.IdChecker, tCheckers.IdPawn, tCheckers.IdColor_, tCheckers.IsQueen, tCheckers.PawnColumn, tCheckers.PawnRow, tCheckers.InGame
 FROM            tCheckers INNER JOIN
                          tGames ON tCheckers.IdChecker = tGames.IdChecker_
-WHERE        (tCheckers.InGame = 1) AND (tCheckers.PawnColumn = @PawnColumn) AND (tCheckers.PawnRow = @PawnRow) AND (tGames.IdGame = @IdGame)";
+WHERE        (tCheckers.InGame = 1) AND (tCheckers.PawnColumn = @PawnColumn) AND (tCheckers.PawnRow = @PawnRow) AND (tGames.IdGame = @IdGame) AND InGame=1";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PawnColumn", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "PawnColumn", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PawnRow", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "PawnRow", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -6170,8 +6170,9 @@ WHERE        (tCheckers.InGame = 1) AND (tCheckers.PawnColumn = @PawnColumn) AND
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = "SELECT ELO, IdUser, IsActive, Login, LoginTime, Name, Password, SessionID FROM tU" +
-                "sers WHERE (IsActive = 1)";
+                "sers WHERE (IsActive = 1) AND IdUser!=@IdUser";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdUser", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IdUser", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
             this._commandCollection[2].CommandText = "SELECT        COUNT(*) AS Expr1\r\nFROM            tUsers\r\nWHERE        (SessionID " +
@@ -6270,8 +6271,9 @@ WHERE        (tCheckers.InGame = 1) AND (tCheckers.PawnColumn = @PawnColumn) AND
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual SQL_DATASET.tUsersDataTable ActiveUsers() {
+        public virtual SQL_DATASET.tUsersDataTable ActiveUsers(int IdUser) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(IdUser));
             SQL_DATASET.tUsersDataTable dataTable = new SQL_DATASET.tUsersDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;

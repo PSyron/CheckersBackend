@@ -23,7 +23,16 @@ namespace Checkers.App_Data
         //Sprawdzenie prawidlowosci sesji
         public static mUser logIn(String session)
         {
-            if ((int)Uta.CheckSession(session) == 0) return null;
+            var checkSession = Uta.CheckSession(session);
+            try
+            {
+                if (checkSession != null && (int)checkSession == 0) return new mUser();
+            }
+            catch
+            {
+                return new mUser();
+            }
+            //if ((int)Uta.CheckSession(session) == 0) return null;
             Uta.UserActive(session);
             mUser loggedIn = new mUser(session, (int)Uta.SessionUserId(session));
             loggedIn.authorize();
@@ -97,9 +106,11 @@ namespace Checkers.App_Data
             loggedIn.authorize();
             return loggedIn;
         }
-        public static List<mUser> getActiveUsers()
+        public static List<mUser> getActiveUsers(String sessionToken)
         {
-            DataTable list = Uta.ActiveUsers();
+            int idUser=-2;
+            idUser = (int)Uta.SessionUserId(sessionToken);
+            DataTable list = Uta.ActiveUsers(idUser);
             return dataToUsersList(list);
         }
         public static List<mUser> getFriends(String sessionToken)
@@ -239,21 +250,29 @@ namespace Checkers.App_Data
             idUser = (int)Uta.SessionUserId(sessionToken);
             DataTable pawns= Cta.FindPawnIdByPossition(preX, preY, idGame);
             mPawn Pawn = null;
-            if (pawns.Rows.Count > 0)
+            try
             {
-                var row = pawns.Rows[pawns.Rows.Count - 1];
-                Pawn = new mPawn(Int16.Parse(row["IdPawn"].ToString()), Int16.Parse(row["PawnColumn"].ToString()), Int16.Parse(row["PawnRow"].ToString()), Int16.Parse(row["IdColor_"].ToString()), Int16.Parse(row["IdChecker"].ToString()));
-            }
-                if (postY == 8 && Pawn.getColor() == 1 || postY == 1 && Pawn.getColor() == 2) Pawn.advanceToQueen();
-           
-            if(Math.Abs(postY-preY)==2){
-                DataTable pawns2= Cta.FindPawnIdByPossition((preX+postX), (preY+postY), idGame);
-                if (pawns.Rows.Count > 0)
+                if (pawns.Rows.Count > 0 && pawns != null)
                 {
-                    var row2 = pawns2.Rows[pawns.Rows.Count - 1];
-                    idPawnOut = Int16.Parse(row2["IdPawn"].ToString());
-                    Cta.PawnOut(Pawn.getidChecker(), idPawnOut);
+                    var row = pawns.Rows[pawns.Rows.Count - 1];
+                    Pawn = new mPawn(Int16.Parse(row["IdPawn"].ToString()), Int16.Parse(row["PawnColumn"].ToString()), Int16.Parse(row["PawnRow"].ToString()), Int16.Parse(row["IdColor_"].ToString()), Int16.Parse(row["IdChecker"].ToString()));
                 }
+                if (postY == 8 && Pawn.getColor() == 1 || postY == 1 && Pawn.getColor() == 2) Pawn.advanceToQueen();
+
+                if (Math.Abs(postY - preY) == 2)
+                {
+                    DataTable pawns2 = Cta.FindPawnIdByPossition((preX + postX), (preY + postY), idGame);
+                    if (pawns2.Rows.Count > 0 && pawns2 != null)
+                    {
+                        var row2 = pawns2.Rows[pawns.Rows.Count - 1];
+                        idPawnOut = Int16.Parse(row2["IdPawn"].ToString());
+                        Cta.PawnOut(Pawn.getidChecker(), idPawnOut);
+                    }
+                }
+            }
+            catch
+            {
+                return null;
             }
             if (Pawn == null) return null;
             Cta.PawnMove(postX,postY,Pawn.getidChecker(),Pawn.getId()); //move Pawn
